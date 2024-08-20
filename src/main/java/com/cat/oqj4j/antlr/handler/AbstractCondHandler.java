@@ -33,7 +33,7 @@ public abstract class AbstractCondHandler<T extends CondExpType> implements Cond
         } catch (OqlExpResolvedException e) {
             throw e;
         } catch (Exception e) {
-            throw new OqlExpResolvedException(nameExp.getExp() + "表达式处理异常");
+            throw new OqlExpResolvedException(nameExp.getExp() + "表达式处理异常", e);
         }
         // 如果达到合法数量转移为全部符合，提高后续操作的性能和空间
         legalObjPack.transferAllSatisfiedIf(srcCol.size());

@@ -18,7 +18,7 @@ public abstract class StrHelper {
         String result = str;
         if (args != null && args.length > 0) {
             for (Object arg : args) {
-                String argStr = arg.toString();
+                String argStr = arg == null ? "null" : arg.toString();
                 // 如果存在$符号需要进行转义
                 if (argStr.contains("$")) {
                     argStr = argStr.replaceAll("\\$", "\\\\\\$");

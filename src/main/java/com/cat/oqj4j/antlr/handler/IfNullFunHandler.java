@@ -13,7 +13,9 @@ public class IfNullFunHandler extends AbstractFunHandler {
     @Override
     public Object handleActually(Collection<?> srcCol, Object curObj, Object... args) {
         Object result = null;
-        if (args[0] == null) {
+        if (args[0] != null) {
+            result = args[0];
+        } else {
             result = args[1];
         }
         return result;

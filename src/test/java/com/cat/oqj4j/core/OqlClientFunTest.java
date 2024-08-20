@@ -79,7 +79,7 @@ public class OqlClientFunTest {
         p02.setIsMan(false);
         personTests.add(p02);
 
-        String whereOqlExp = "F{If(${isMan}, 'M',' W')} = 'M'";
+        String whereOqlExp = "F{If(${isMan}, 'M','W')} = 'M'";
         List<PersonTest> result = oqlClient.doWhereFilter(whereOqlExp, personTests);
         System.out.println(whereOqlExp +" 输出结果为：" + result);
         Assert.assertEquals(1, result.size());
@@ -88,6 +88,33 @@ public class OqlClientFunTest {
         result = oqlClient.doWhereFilter(whereOqlExp, personTests);
         System.out.println(whereOqlExp +" 输出结果为：" + result);
         Assert.assertEquals(2, result.size());
+    }
+
+    /**
+     * 测试 IfNull 函数
+     * @throws Exception
+     */
+    @Test
+    public void testIfNull() throws Exception {
+        List<PersonTest> personTests = new ArrayList<>();
+        PersonTest p01 = new PersonTest();
+        p01.setName("张三");
+        p01.setIsMan(true);
+        personTests.add(p01);
+
+        PersonTest p02 = new PersonTest();
+        p02.setName("李红");
+        personTests.add(p02);
+
+        String whereOqlExp = "F{IfNull(${isMan}, '未知')} = '未知'";
+        List<PersonTest> result = oqlClient.doWhereFilter(whereOqlExp, personTests);
+        System.out.println(whereOqlExp +" 输出结果为：" + result);
+        Assert.assertEquals(1, result.size());
+
+        whereOqlExp = "F{IfNull(${isMan}, false)}";
+        result = oqlClient.doWhereFilter(whereOqlExp, personTests);
+        System.out.println(whereOqlExp +" 输出结果为：" + result);
+        Assert.assertEquals(1, result.size());
     }
 
 }

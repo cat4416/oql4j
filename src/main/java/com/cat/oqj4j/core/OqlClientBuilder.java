@@ -43,6 +43,8 @@ public class OqlClientBuilder {
         oqlCore.registerFunHandler(new StrLenFunHandler());
         // If函数处理器
         oqlCore.registerFunHandler(new IfFunHandler());
+        // IfNull函数处理器
+        oqlCore.registerFunHandler(new IfNullFunHandler());
     }
 
     /**
