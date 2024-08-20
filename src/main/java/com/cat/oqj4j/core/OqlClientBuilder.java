@@ -45,6 +45,24 @@ public class OqlClientBuilder {
         oqlCore.registerFunHandler(new IfFunHandler());
         // IfNull函数处理器
         oqlCore.registerFunHandler(new IfNullFunHandler());
+        // CastStr函数处理器
+        oqlCore.registerFunHandler(new CastStrFunHandler());
+        // CastBigDec函数处理器
+        oqlCore.registerFunHandler(new CastBigDecFunHandler());
+        // CastInt函数处理器
+        oqlCore.registerFunHandler(new CastIntFunHandler());
+        // CastLong函数处理器
+        oqlCore.registerFunHandler(new CastLongFunHandler());
+        // CastByte函数处理器
+        oqlCore.registerFunHandler(new CastByteFunHandler());
+        // CastFloat函数处理器
+        oqlCore.registerFunHandler(new CastFloatFunHandler());
+        // CastDouble函数处理器
+        oqlCore.registerFunHandler(new CastDoubleFunHandler());
+        // CastChar函数处理器
+        oqlCore.registerFunHandler(new CastCharFunHandler());
+        // CastBool函数处理器
+        oqlCore.registerFunHandler(new CastBoolFunHandler());
     }
 
     /**
