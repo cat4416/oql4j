@@ -178,3 +178,8 @@ System.out.println(result);
     oqlClientBuilder.setBeanHandler(new MyBeanHandler());
 ```
 
+
+# 附加
+源码将发布在github上进行管理，同时在gittee进行放开查看。
+- github地址（支持编辑）: https://github.com/cat4416/oql4j
+- gitee地址（仅能查看）：https://gitee.com/cat4416/oql4j
