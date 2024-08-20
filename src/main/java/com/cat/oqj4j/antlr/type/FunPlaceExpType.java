@@ -1,0 +1,44 @@
+package com.cat.oqj4j.antlr.type;
+
+/**
+ * 函数取值占位符表达式
+ *
+ * @author gwj
+ */
+public class FunPlaceExpType implements ExpType{
+    /**
+     * 表达式
+     */
+    private String exp;
+    /**
+     *  函数表达式里包含的参数数量
+     * ps：funName(10,20,${city}) 则说明有3个参数
+     */
+    private int argQuantity;
+
+
+    public FunPlaceExpType(String exp) {
+        this.exp = exp;
+    }
+
+    @Override
+    public String getExp() {
+        return this.exp;
+    }
+
+    /**
+     * 获取参数数量
+     * @return
+     */
+    public int getArgQuantity() {
+        return argQuantity;
+    }
+
+    /**
+     * 设置参数数量
+     * @param argQuantity
+     */
+    public void setArgQuantity(int argQuantity) {
+        this.argQuantity = argQuantity;
+    }
+}
