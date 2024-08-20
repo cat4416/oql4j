@@ -183,3 +183,9 @@ System.out.println(result);
 源码将发布在github上进行管理，同时在gittee进行放开查看。
 - github地址（支持编辑）: https://github.com/cat4416/oql4j
 - gitee地址（仅能查看）：https://gitee.com/cat4416/oql4j
+
+<br/>
+
+作者联系方式：
+- 微信号(wechat)：cat4416
+- 邮箱：565335545@qq.com
