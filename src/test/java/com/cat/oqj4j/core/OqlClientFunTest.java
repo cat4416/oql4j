@@ -62,4 +62,32 @@ public class OqlClientFunTest {
         Assert.assertEquals(0, result.size());
     }
 
+    /**
+     * 测试 If 函数
+     * @throws Exception
+     */
+    @Test
+    public void testIf() throws Exception {
+        List<PersonTest> personTests = new ArrayList<>();
+        PersonTest p01 = new PersonTest();
+        p01.setName("张三");
+        p01.setIsMan(true);
+        personTests.add(p01);
+
+        PersonTest p02 = new PersonTest();
+        p02.setName("李红");
+        p02.setIsMan(false);
+        personTests.add(p02);
+
+        String whereOqlExp = "F{If(${isMan}, 'M',' W')} = 'M'";
+        List<PersonTest> result = oqlClient.doWhereFilter(whereOqlExp, personTests);
+        System.out.println(whereOqlExp +" 输出结果为：" + result);
+        Assert.assertEquals(1, result.size());
+
+        whereOqlExp = "F{If(${isMan}, 'M', 'W')} IN ('W','M')";
+        result = oqlClient.doWhereFilter(whereOqlExp, personTests);
+        System.out.println(whereOqlExp +" 输出结果为：" + result);
+        Assert.assertEquals(2, result.size());
+    }
+
 }

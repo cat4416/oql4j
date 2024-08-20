@@ -16,6 +16,10 @@ public class PersonTest {
      */
     private Integer age;
     /**
+     * 是否男性
+     */
+    private Boolean isMan;
+    /**
      * 地址
      */
     private Map<String, String> addr;
@@ -44,6 +48,14 @@ public class PersonTest {
         this.age = age;
     }
 
+    public Boolean getIsMan() {
+        return isMan;
+    }
+
+    public void setIsMan(Boolean man) {
+        isMan = man;
+    }
+
     /**
      * 增加地址
      * @param key
@@ -61,6 +73,7 @@ public class PersonTest {
         return "PersonTest{" +
                 "name='" + name + '\'' +
                 ", age=" + age +
+                ", isMan=" + isMan +
                 ", addr=" + addr +
                 '}';
     }

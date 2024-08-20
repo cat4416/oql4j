@@ -6,6 +6,7 @@ import com.cat.oqj4j.exception.OqlExpResolvedException;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -72,6 +73,15 @@ public class FunPlaceValExpType implements DynamicValExpType {
             argExpTypes = new ArrayList<>();
         }
         argExpTypes.add(expType);
+    }
+
+    /**
+     * 反转参数
+     */
+    public void reverseArg() {
+        if (argExpTypes != null && argExpTypes.size() > 1) {
+            Collections.reverse(argExpTypes);
+        }
     }
 
 

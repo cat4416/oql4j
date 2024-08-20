@@ -39,8 +39,10 @@ public class OqlClientBuilder {
         oqlCore.registerCondHandler(new BinaryCondHandler());
 
         // 注册默认定义的函数处理器
-        // 统计字符串长度
+        // StrLen函数处理器
         oqlCore.registerFunHandler(new StrLenFunHandler());
+        // If函数处理器
+        oqlCore.registerFunHandler(new IfFunHandler());
     }
 
     /**

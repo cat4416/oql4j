@@ -209,6 +209,8 @@ public class WhereStatementListener<T> extends WhereStatementBaseListener {
         for (int i = 0; i < funPlaceExpType.getArgQuantity(); i++) {
             funPlaceValType.addArgExpTypes((ValExpType) nodeStack.pop());
         }
+        // 使用栈堆方式入参，故需要进行反转，参数顺序才和表达式一致
+        funPlaceValType.reverseArg();
         nodeStack.push(funPlaceValType);
     }
 

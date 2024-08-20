@@ -113,18 +113,18 @@ System.out.println(result);
   
   | 函数名 | 功能 | 所需参数 | 详细说明 |
   | --- | --- | --- | --- |
-  | StrLen | 字符串长度 | arg1:用于判断字符串长度的参数 | 将传入的参数转换为字符串，统计并返回字符串长度。如果参数为null，则返回长度为0。 |
-  | If | 三元表达式条件处理 | arg1:用于判断条件的真假，arg2:条件为真时的返回值，arg3:条件为假时的返回值 | 用于判断arg1参数，如果为真则返回arg2参数，反之返回arg3。 |
-  | IfNull | null结果时取默认值 | arg1:主参数值，arg2:默认值 | 如果arg1参数不为null则返回此值，否则返回arg2参数。  |
-  | CastStr | 转换为字符串 | arg1:用于转换为字符串的参数 | 将传入的参数转换为字符串，如果参数为null，则返回null。 |
-  | CastBigDec | 转换为BigDecimal | arg1:用于转换为BigDecimal的参数 | 将传入的参数转换为BigDecimal，如果参数为null，则返回null。 |
-  | CastInt | 转换为Integer | arg1:用于转换为Integer的参数 | 将传入的参数转换为Integer，如果参数为null，则返回null。 |
-  | CastLong | 转换为Long | arg1:用于转换为Long的参数 | 将传入的参数转换为Long，如果参数为null，则返回null。 |
-  | CastByte | 转换为Byte | arg1:用于转换为Byte的参数 | 将传入的参数转换为Byte，如果参数为null，则返回null。 |
-  | CastFloat | 转换为Byte | arg1:用于转换为Float的参数 | 将传入的参数转换为Float，如果参数为null，则返回null。 |
-  | CastDouble | 转换为Double | arg1:用于转换为Double的参数 | 将传入的参数转换为Double，如果参数为null，则返回null。 |
-  | CastChar | 转换为Character | arg1:用于转换为Character的参数 | 将传入的参数转换为Character，如果参数为null或者为""字符串，则返回null，长度大于1则转换报错。 |
-  | CastBool | 转换为Boolean | arg1:用于转换为Boolean的参数 | 将传入的参数转换为Boolean，如果参数为null，则返回null。数值0和false字符串都属于假，1和true字符串则属于真(false和true字符串不区分大小写)。 |
+  | StrLen | 字符串长度 | StrLen(arg1)，arg1：用于判断字符串长度的参数 | 将传入的参数转换为字符串，统计并返回字符串长度。如果参数为null，则返回长度为0。 |
+  | If | 三元表达式条件处理 | If(arg1,arg2,arg3)，arg1：用于判断条件的真假，arg2：条件为真时的返回值，arg3：条件为假时的返回值 | 用于判断arg1参数，如果为真则返回arg2参数，反之返回arg3。数值0和false字符串都属于假，1和true字符串则属于真(false和true字符串不区分大小写)。 |
+  | IfNull | null结果时取默认值 | IfNull(arg1,arg2)，arg1：主参数值，arg2：默认值 | 如果arg1参数不为null则返回此值，否则返回arg2参数。  |
+  | CastStr | 转换为字符串 | CastStr(arg1)，arg1：用于转换为字符串的参数 | 将传入的参数转换为字符串，如果参数为null，则返回null。 |
+  | CastBigDec | 转换为BigDecimal | CastBigDec(arg1)，arg1：用于转换为BigDecimal的参数 | 将传入的参数转换为BigDecimal，如果参数为null，则返回null。 |
+  | CastInt | 转换为Integer | CastInt(arg1)，arg1：用于转换为Integer的参数 | 将传入的参数转换为Integer，如果参数为null，则返回null。 |
+  | CastLong | 转换为Long | CastLong(arg1)，arg1：用于转换为Long的参数 | 将传入的参数转换为Long，如果参数为null，则返回null。 |
+  | CastByte | 转换为Byte | CastByte(arg1)，arg1：用于转换为Byte的参数 | 将传入的参数转换为Byte，如果参数为null，则返回null。 |
+  | CastFloat | 转换为Byte | CastFloat(arg1)，arg1：用于转换为Float的参数 | 将传入的参数转换为Float，如果参数为null，则返回null。 |
+  | CastDouble | 转换为Double | CastDouble(arg1)，arg1：用于转换为Double的参数 | 将传入的参数转换为Double，如果参数为null，则返回null。 |
+  | CastChar | 转换为Character | CastChar(arg1)，arg1：用于转换为Character的参数 | 将传入的参数转换为Character，如果参数为null或者为""字符串，则返回null，长度大于1则转换报错。 |
+  | CastBool | 转换为Boolean | CastBool(arg1)，arg1：用于转换为Boolean的参数 | 将传入的参数转换为Boolean，如果参数为null，则返回null。数值0和false字符串都属于假，1和true字符串则属于真(false和true字符串不区分大小写)。 |
 
   
 # 四、约定说明
