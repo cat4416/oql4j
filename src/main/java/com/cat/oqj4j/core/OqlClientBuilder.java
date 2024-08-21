@@ -63,6 +63,8 @@ public class OqlClientBuilder {
         oqlCore.registerFunHandler(new CastCharFunHandler());
         // CastBool函数处理器
         oqlCore.registerFunHandler(new CastBoolFunHandler());
+        // ClassSimpleName函数处理器
+        oqlCore.registerFunHandler(new ClassSimpleNameFunHandler());
     }
 
     /**

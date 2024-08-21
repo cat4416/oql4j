@@ -82,8 +82,8 @@ public class OpeDiagnotor {
          * 2、如果仅有一个对象为null，则认为均不同。
          * 3、如果是相同类型，则直接调用对象的equalse方法比较。
          * 4、如果类型不同，则判断是否有 布尔值，如果有布尔值，则使用布尔值进行比较(0和false字符串都属于假，1和true字符串则属于真)。
-         * 5、如果都是属于Number及其子类，则转换为浮点型比较。
-         * 6、如果是原始类型或者字符串类型，统一获取对象字符串进行比较。
+         * 5、如果都是属于Number子类，则转换为浮点型比较。
+         * 6、如果是原始类型、字符串类型、Number子类，统一获取对象字符串进行比较。
          */
         if (obj1 == null && obj2 == null) {
             return true;
@@ -114,13 +114,29 @@ public class OpeDiagnotor {
         }
 
         // 规则6
-        boolean isObj1Primitive = obj1.getClass().isPrimitive() || (obj1 instanceof String);
-        boolean isObj2Primitive = obj2.getClass().isPrimitive() || (obj2 instanceof String);
+        boolean isObj1Primitive = isAllowPrimitiveCompare(obj1);
+
+        boolean isObj2Primitive = isAllowPrimitiveCompare(obj2);
         if (isObj1Primitive && isObj2Primitive) {
             return obj1.toString().equals(obj2.toString());
         }
 
         return false;
+    }
+
+    /**
+     * 是否允许使用原始类型方式比较
+     * @param obj 对象
+     * @return true表示可以使用原始类型方式比较
+     */
+    private boolean isAllowPrimitiveCompare(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        // 如果是原始类型、字符串类型、Number子类， 都认为是原始类型
+        return obj.getClass().isPrimitive()
+                || (obj instanceof String)
+                ||  (obj instanceof Number);
     }
 
     /**
@@ -134,9 +150,9 @@ public class OpeDiagnotor {
          * 按规则优先级诊断：
          * 1、如果存在有对象为null，则认为均不同。
          * 2、如果对象均为BigDecimal，转为BigDecimal进行比较。
-         * 3、如果都是属于Number及其子类，则转换为浮点型比较。
+         * 3、如果都是属于Number子类，则转换为浮点型比较。
          * 4、如果存在有对象为布尔值，则认为均不同。
-         * 5、如果是原始类型或者字符串类型，统一获取对象字符串进行比较(先比较长度，然后在比较asscii码值)。
+         * 5、如果是原始类型、字符串类型、Number子类，统一获取对象字符串进行比较(先比较长度，然后在比较asscii码值)。
          */
         if (obj1 == null || obj2 == null) {
             return false;
@@ -156,8 +172,10 @@ public class OpeDiagnotor {
         }
 
         // 规则5
-        boolean isObj1Primitive = obj1.getClass().isPrimitive() || (obj1 instanceof String);
-        boolean isObj2Primitive = obj2.getClass().isPrimitive() || (obj2 instanceof String);
+        boolean isObj1Primitive = isAllowPrimitiveCompare(obj1);
+
+        boolean isObj2Primitive = isAllowPrimitiveCompare(obj2);
+
         if (isObj1Primitive && isObj2Primitive) {
             String obj1Str = obj1.toString();
             String obj2Str = obj2.toString();
@@ -190,9 +208,9 @@ public class OpeDiagnotor {
          * 按规则优先级诊断：
          * 1、如果存在有对象为null，则认为均不同。
          * 2、如果对象均为BigDecimal，转为BigDecimal进行比较。
-         * 3、如果都是属于Number及其子类，则转换为浮点型比较。
+         * 3、如果都是属于Number子类，则转换为浮点型比较。
          * 4、如果存在有对象为布尔值，则认为均不同。
-         * 5、如果是原始类型或者字符串类型，统一获取对象字符串进行比较(先比较长度，然后在比较asscii码值)。
+         * 5、如果是原始类型、字符串类型、Number子类，统一获取对象字符串进行比较(先比较长度，然后在比较asscii码值)。
          */
         if (obj1 == null || obj2 == null) {
             return false;
@@ -210,8 +228,10 @@ public class OpeDiagnotor {
         }
 
         // 规则5
-        boolean isObj1Primitive = obj1.getClass().isPrimitive() || (obj1 instanceof String);
-        boolean isObj2Primitive = obj2.getClass().isPrimitive() || (obj2 instanceof String);
+        boolean isObj1Primitive = isAllowPrimitiveCompare(obj1);
+
+        boolean isObj2Primitive = isAllowPrimitiveCompare(obj2);
+
         if (isObj1Primitive && isObj2Primitive) {
             String obj1Str = obj1.toString();
             String obj2Str = obj2.toString();

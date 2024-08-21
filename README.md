@@ -109,6 +109,7 @@ System.out.println(result);
 - 格式为```F{funName}、F{funName()}、F{funName(arg1,arg2...)}``` 均支持，默认都会传操作集合的原对象和遍历的当前对象这两个参数，
   有需要的可以额外追加参数，并且追加的参数可以为常量参数也可以为动态取值参数。
   例如 ```F{StrLen(${name})} > 2``` 表示取出对象的name属性值作为参数，执行StrLen函数，并对函数结果进行大于2判断。
+  例如 ```F{CastInt(F{StrLen(${age})})} > 2``` 表示取出对象的age属性值，取得字符串长度，然后再转换为int类型，并对函数结果进行大于2判断。
 - 框架预定义的函数如下（支持自定义函数，具体可查看 [5.1 自定义函数](#51-自定义函数)）：
   
   | 函数名 | 功能 | 所需参数 | 详细说明 |
@@ -121,10 +122,11 @@ System.out.println(result);
   | CastInt | 转换为Integer | CastInt(arg1)，arg1：用于转换为Integer的参数 | 将传入的参数转换为Integer，如果参数为null，则返回null。 |
   | CastLong | 转换为Long | CastLong(arg1)，arg1：用于转换为Long的参数 | 将传入的参数转换为Long，如果参数为null，则返回null。 |
   | CastByte | 转换为Byte | CastByte(arg1)，arg1：用于转换为Byte的参数 | 将传入的参数转换为Byte，如果参数为null，则返回null。 |
-  | CastFloat | 转换为Byte | CastFloat(arg1)，arg1：用于转换为Float的参数 | 将传入的参数转换为Float，如果参数为null，则返回null。 |
+  | CastFloat | 转换为Float | CastFloat(arg1)，arg1：用于转换为Float的参数 | 将传入的参数转换为Float，如果参数为null，则返回null。 |
   | CastDouble | 转换为Double | CastDouble(arg1)，arg1：用于转换为Double的参数 | 将传入的参数转换为Double，如果参数为null，则返回null。 |
   | CastChar | 转换为Character | CastChar(arg1)，arg1：用于转换为Character的参数 | 将传入的参数转换为Character，如果参数为null或者为""字符串，则返回null，长度大于1则转换报错。 |
   | CastBool | 转换为Boolean | CastBool(arg1)，arg1：用于转换为Boolean的参数 | 将传入的参数转换为Boolean，如果参数为null，则返回null。数值0和false字符串都属于假，1和true字符串则属于真(false和true字符串不区分大小写)。 |
+  | ClassSimpleName | 获取Class简短名称 | ClassSimpleName(arg1)，arg1：用于获取Class字节码对象的简短名称的参数 | 将传入的参数去除Class字节码对象并获取简短名称，如果参数为null，则返回"null"字符串 |
 
   
 # 四、约定说明
@@ -145,13 +147,13 @@ System.out.println(result);
     1. 判断相等时：如果是相同类型，判断相等时直接调用对象的equalse方法比较。
     2. 判断相等时：如果比较对象有null，则要求另外个对象也必须为null才相等，否则均为不等。
     3. 判断相等时：如果比较对象有个为布尔类型，另外个对象为字符串或数字时，则尝试统一转换为布尔值进行比较。0和false字符串都属于假，1和true字符串则属于真(false和true字符串不区分大小写)。
-    4. 判断相等时：如果都是属于Number及其子类，则转换为浮点型比较。
-    5. 判断相等时：如果是java原始类型或者字符串类型，统一获取对象字符串进行比较。
+    4. 判断相等时：如果都是同属于Number子类，则转换为浮点型比较。
+    5. 判断相等时：如果都是属于其中一种（java原始类型、字符串类型、Number子类），统一获取对象字符串进行比较。
     6. 判断大小时：如果存在有对象为null，属于无法比较大小，均返回false。
     7. 判断大小时：如果对象均为BigDecimal，转为BigDecimal进行比较
-    8. 判断大小时：如果都是属于Number及其子类，则转换为浮点型比较。
+    8. 判断大小时：如果都是同属于Number子类，则转换为浮点型比较。
     9. 判断大小时：如果存在有对象为布尔值，属于无法比较大小，均返回false。
-    10. 判断大小时：如果是java原始类型或者字符串类型，统一获取对象字符串进行比较(先比较长度，然后在比较asscii码值)。
+    10. 判断大小时：如果都是属于其中一种（java原始类型、字符串类型、Number子类），统一获取对象字符串进行比较(先比较长度，然后在比较asscii码值)。
 
 ## 4.2 线程安全
 凡是对应的接口或者类名上有com.cat.oqj4j.annotation.ThreadSafe注解的，均表示此接口实现类和指定类都是线程安全的，生成的对象可作为单例使用。

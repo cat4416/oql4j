@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,6 +64,29 @@ public class OqlClientFunTest {
     }
 
     /**
+     * 测试嵌套情况的函数
+     * @throws Exception
+     */
+    @Test
+    public void testNestCase() throws Exception {
+        List<PersonTest> personTests = new ArrayList<>();
+        PersonTest p01 = new PersonTest();
+        p01.setName("张三");
+        p01.setAge(94);
+        personTests.add(p01);
+
+        PersonTest p02 = new PersonTest();
+        p02.setName("李红");
+        p01.setAge(101);
+        personTests.add(p02);
+
+        String whereOqlExp = "F{CastInt(F{StrLen(${age})})} > 2";
+        List<PersonTest> result = oqlClient.doWhereFilter(whereOqlExp, personTests);
+        System.out.println(whereOqlExp +" 输出结果为：" + result);
+        Assert.assertEquals(1, result.size());
+    }
+
+    /**
      * 测试 If 函数
      * @throws Exception
      */
@@ -115,6 +139,208 @@ public class OqlClientFunTest {
         result = oqlClient.doWhereFilter(whereOqlExp, personTests);
         System.out.println(whereOqlExp +" 输出结果为：" + result);
         Assert.assertEquals(1, result.size());
+    }
+
+    /**
+     * 测试 CastStr 函数
+     * @throws Exception
+     */
+    @Test
+    public void testCastStr() throws Exception {
+        PersonTest p01 = new PersonTest();
+        p01.setName("张三");
+        p01.setIsMan(true);
+        p01.setAge(23);
+
+        String whereOqlExp = "F{ClassSimpleName(F{CastStr(${age})})} = 'String'";
+        boolean result = oqlClient.doWhereExists(whereOqlExp, p01);
+        System.out.println(whereOqlExp +" 输出结果为：" + result);
+        Assert.assertTrue(result);
+
+        whereOqlExp = "F{ClassSimpleName(${age})} = 'String'";
+        result = oqlClient.doWhereExists(whereOqlExp, p01);
+        System.out.println(whereOqlExp +" 输出结果为：" + result);
+        Assert.assertFalse(result);
+    }
+
+
+    /**
+     * 测试 CastBigDec 函数
+     * @throws Exception
+     */
+    @Test
+    public void testCastBigDec() throws Exception {
+        PersonTest p01 = new PersonTest();
+        p01.setName("张三");
+        p01.setIsMan(true);
+        p01.setAge(23);
+
+        String whereOqlExp = "F{ClassSimpleName(F{CastBigDec(${age})})} = 'BigDecimal'";
+        boolean result = oqlClient.doWhereExists(whereOqlExp, p01);
+        System.out.println(whereOqlExp +" 输出结果为：" + result);
+        Assert.assertTrue(result);
+
+        whereOqlExp = "F{ClassSimpleName(${age})} = 'BigDecimal'";
+        result = oqlClient.doWhereExists(whereOqlExp, p01);
+        System.out.println(whereOqlExp +" 输出结果为：" + result);
+        Assert.assertFalse(result);
+    }
+
+    /**
+     * 测试 CastInt 函数
+     * @throws Exception
+     */
+    @Test
+    public void testCastInt() throws Exception {
+        PersonTest p01 = new PersonTest();
+        p01.setName("张三");
+        p01.setIsMan(true);
+        p01.setAge(23);
+
+        String whereOqlExp = "F{ClassSimpleName(F{CastInt(${age})})} = 'Integer'";
+        boolean result = oqlClient.doWhereExists(whereOqlExp, p01);
+        System.out.println(whereOqlExp +" 输出结果为：" + result);
+        Assert.assertTrue(result);
+
+        whereOqlExp = "F{ClassSimpleName(${age})} = 'Integer'";
+        result = oqlClient.doWhereExists(whereOqlExp, p01);
+        System.out.println(whereOqlExp +" 输出结果为：" + result);
+        Assert.assertTrue(result);
+    }
+
+    /**
+     * 测试 CastLong 函数
+     * @throws Exception
+     */
+    @Test
+    public void testCastLong() throws Exception {
+        PersonTest p01 = new PersonTest();
+        p01.setName("张三");
+        p01.setIsMan(true);
+        p01.setAge(23);
+
+        String whereOqlExp = "F{ClassSimpleName(F{CastLong(${age})})} = 'Long'";
+        boolean result = oqlClient.doWhereExists(whereOqlExp, p01);
+        System.out.println(whereOqlExp +" 输出结果为：" + result);
+        Assert.assertTrue(result);
+
+        whereOqlExp = "F{ClassSimpleName(${age})} = 'Long'";
+        result = oqlClient.doWhereExists(whereOqlExp, p01);
+        System.out.println(whereOqlExp +" 输出结果为：" + result);
+        Assert.assertFalse(result);
+    }
+
+
+    /**
+     * 测试 CastByte 函数
+     * @throws Exception
+     */
+    @Test
+    public void testCastByte() throws Exception {
+        PersonTest p01 = new PersonTest();
+        p01.setName("张三");
+        p01.setIsMan(true);
+        p01.setAge(23);
+
+        String whereOqlExp = "F{ClassSimpleName(F{CastByte(${age})})} = 'Byte'";
+        boolean result = oqlClient.doWhereExists(whereOqlExp, p01);
+        System.out.println(whereOqlExp +" 输出结果为：" + result);
+        Assert.assertTrue(result);
+
+        whereOqlExp = "F{ClassSimpleName(${age})} = 'Byte'";
+        result = oqlClient.doWhereExists(whereOqlExp, p01);
+        System.out.println(whereOqlExp +" 输出结果为：" + result);
+        Assert.assertFalse(result);
+    }
+
+    /**
+     * 测试 CastFloat 函数
+     * @throws Exception
+     */
+    @Test
+    public void testCastFloat() throws Exception {
+        PersonTest p01 = new PersonTest();
+        p01.setName("张三");
+        p01.setIsMan(true);
+        p01.setAge(23);
+
+        String whereOqlExp = "F{ClassSimpleName(F{CastFloat(${age})})} = 'Float'";
+        boolean result = oqlClient.doWhereExists(whereOqlExp, p01);
+        System.out.println(whereOqlExp +" 输出结果为：" + result);
+        Assert.assertTrue(result);
+
+        whereOqlExp = "F{ClassSimpleName(${age})} = 'Float'";
+        result = oqlClient.doWhereExists(whereOqlExp, p01);
+        System.out.println(whereOqlExp +" 输出结果为：" + result);
+        Assert.assertFalse(result);
+    }
+
+    /**
+     * 测试 CastDouble 函数
+     * @throws Exception
+     */
+    @Test
+    public void testCastDouble() throws Exception {
+        PersonTest p01 = new PersonTest();
+        p01.setName("张三");
+        p01.setIsMan(true);
+        p01.setAge(23);
+
+        String whereOqlExp = "F{ClassSimpleName(F{CastDouble(${age})})} = 'Double'";
+        boolean result = oqlClient.doWhereExists(whereOqlExp, p01);
+        System.out.println(whereOqlExp +" 输出结果为：" + result);
+        Assert.assertTrue(result);
+
+        whereOqlExp = "F{ClassSimpleName(${age})} = 'Double'";
+        result = oqlClient.doWhereExists(whereOqlExp, p01);
+        System.out.println(whereOqlExp +" 输出结果为：" + result);
+        Assert.assertFalse(result);
+    }
+
+
+    /**
+     * 测试 CastChar 函数
+     * @throws Exception
+     */
+    @Test
+    public void testCastChar() throws Exception {
+        PersonTest p01 = new PersonTest();
+        p01.setName("张三");
+        p01.setIsMan(true);
+        p01.setAge(3);
+
+        String whereOqlExp = "F{ClassSimpleName(F{CastChar(${age})})} = 'Character'";
+        boolean result = oqlClient.doWhereExists(whereOqlExp, p01);
+        System.out.println(whereOqlExp +" 输出结果为：" + result);
+        Assert.assertTrue(result);
+
+        whereOqlExp = "F{ClassSimpleName(${age})} = 'Character'";
+        result = oqlClient.doWhereExists(whereOqlExp, p01);
+        System.out.println(whereOqlExp +" 输出结果为：" + result);
+        Assert.assertFalse(result);
+    }
+
+
+    /**
+     * 测试 CastBool 函数
+     * @throws Exception
+     */
+    @Test
+    public void testCastBool() throws Exception {
+        PersonTest p01 = new PersonTest();
+        p01.setName("张三");
+        p01.setIsMan(true);
+        p01.setAge(3);
+
+        String whereOqlExp = "F{ClassSimpleName(F{CastBool(${isMan})})} = 'Boolean'";
+        boolean result = oqlClient.doWhereExists(whereOqlExp, p01);
+        System.out.println(whereOqlExp +" 输出结果为：" + result);
+        Assert.assertTrue(result);
+
+        whereOqlExp = "F{ClassSimpleName(${isMan})} = 'boolean'";
+        result = oqlClient.doWhereExists(whereOqlExp, p01);
+        System.out.println(whereOqlExp +" 输出结果为：" + result);
+        Assert.assertFalse(result);
     }
 
 }
