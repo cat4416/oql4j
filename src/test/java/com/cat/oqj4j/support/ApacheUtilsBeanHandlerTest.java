@@ -1,18 +1,19 @@
 package com.cat.oqj4j.support;
 
+import com.cat.oqj4j.exception.BeanHandlingException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
  * apache的beanutils工具包的bean处理器 测试
+ *
+ * @author gwj
  */
+@SuppressWarnings("unchecked")
 public class ApacheUtilsBeanHandlerTest {
     private ApacheUtilsBeanHandler apacheUtilsBeanHandler;
 
@@ -67,6 +68,31 @@ public class ApacheUtilsBeanHandlerTest {
         apacheUtilsBeanHandler.setFieldVal(personTest, "name", "李四");
         apacheUtilsBeanHandler.setFieldVal(personTest, "age", 32);
         System.out.println(personTest);
+
+    }
+
+    /**
+     * 测试设置字段值出现异常
+     * @throws Exception
+     */
+    @Test
+    public void testSetFieldValException() throws Exception {
+        System.out.println("测试异常情况testSetFieldValException");
+        PersonTest personTest = new PersonTest();
+        // 类型不同进行设置，期望抛出异常
+        try {
+            apacheUtilsBeanHandler.setFieldVal(personTest, "name", 998);
+            Assert.fail("apacheUtilsBeanHandler.setFieldVal没有抛出期望的BeanHandlingException异常");
+        } catch(BeanHandlingException e) {
+            System.out.println("设置类型不同出现异常，测试通过。" + e.getMessage());
+        }
+
+        try {
+            apacheUtilsBeanHandler.setFieldVal(personTest, "age", "32");
+            Assert.fail("apacheUtilsBeanHandler.setFieldVal没有抛出期望的BeanHandlingException异常");
+        } catch(BeanHandlingException e) {
+            System.out.println("设置类型不同出现异常，测试通过。" + e.getMessage());
+        }
     }
 
     /**
@@ -91,27 +117,6 @@ public class ApacheUtilsBeanHandlerTest {
         System.out.println("after: " + dest);
         apacheUtilsBeanHandler.copyBean(dest, origPerson);
         System.out.println("after2: " + dest);
-    }
-
-    public static void main(String[] args) {
-        String val = "有限公司（深圳）有限";
-        System.out.println(val);
-        System.out.println(val.replace("有限*", "").replace("（","(")
-                .replace("）",")"));
-        System.out.println(val.replaceAll("有限*", ""));
-
-        List<String> list = new ArrayList<>();
-        list.add("a");
-        list.add("b");
-        list.add("c");
-        list.add(1,"d");
-
-        System.out.println(list);
-
-        BigDecimal b1 = new BigDecimal("36.66");
-        BigDecimal b2 = new BigDecimal("36.66");
-        System.out.println(b1.compareTo(b2));
-        System.out.println(b1.equals(b2));
     }
 
 }

@@ -3,8 +3,9 @@ grammar WhereStatement;
 // 引入基本语法
 import BaseStatement;
 
+// 解析处理。增加EOF声明，匹配输入的全文。
 parse
-     : stat
+     : stat EOF
      ;
 
 // 定义声明语法

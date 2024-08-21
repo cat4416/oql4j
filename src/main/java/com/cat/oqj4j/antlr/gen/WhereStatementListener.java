@@ -1,4 +1,4 @@
-// Generated from F:/developer/oql4j/srccode/src/main/resources/altnr/WhereStatement.g4 by ANTLR 4.13.1
+// Generated from WhereStatement.g4 by ANTLR 4.13.1
 package com.cat.oqj4j.antlr.gen;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 

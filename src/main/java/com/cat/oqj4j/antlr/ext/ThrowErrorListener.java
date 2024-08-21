@@ -1,8 +1,7 @@
-package com.cat.oqj4j.antlr.listener;
+package com.cat.oqj4j.antlr.ext;
 
 import com.cat.oqj4j.annotation.ThreadSafe;
 import com.cat.oqj4j.exception.OqlExpResolvedException;
-import com.cat.oqj4j.support.OpeDiagnotor;
 import com.cat.oqj4j.support.StrHelper;
 import org.antlr.v4.runtime.BaseErrorListener;
 import org.antlr.v4.runtime.RecognitionException;
@@ -39,6 +38,6 @@ public class ThrowErrorListener extends BaseErrorListener {
                             int charPositionInLine,
                             String msg,
                             RecognitionException e) {
-        throw new OqlExpResolvedException(StrHelper.fillPlaceholder("表达式解析异常： {} line : {} position {}", line, charPositionInLine, msg));
+        throw new OqlExpResolvedException(StrHelper.fillPlaceholder("表达式解析异常-在第 {} 行 {} 位置字符有误. {}", line, charPositionInLine, msg));
     }
 }

@@ -3,7 +3,6 @@ package com.cat.oqj4j.antlr.type;
 /**
  * 动态值表达式类型
  * @author gwj
- * @date 2024/7/19
  */
 public interface DynamicValExpType extends ValExpType {
     /**

@@ -1,13 +1,7 @@
 package com.cat.oqj4j.core;
 
 import com.cat.oqj4j.annotation.ThreadSafe;
-import com.cat.oqj4j.antlr.gen.WhereStatementLexer;
-import com.cat.oqj4j.antlr.gen.WhereStatementParser;
-import com.cat.oqj4j.antlr.listener.ThrowErrorListener;
 import com.cat.oqj4j.antlr.listener.WhereStatementListener;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -18,7 +12,6 @@ import java.util.List;
  * ps：此类是线程安全的，可以作为单例使用。
  *
  * @author gwj
- * @date 2024/7/19
  */
 @ThreadSafe
 public class DefaultOqlClientImpl implements OqlClient {
@@ -27,9 +20,9 @@ public class DefaultOqlClientImpl implements OqlClient {
      */
     private OqlCoreProfile coreProfile;
     /**
-     * 解析树遍历器
+     * antlr执行器
      */
-    private ParseTreeWalker walker;
+    private AntlrLauncher antlrLauncher = AntlrLauncher.getInstance();
 
     /**
      * 构建客户端。使用默认级别的访问权限，控制外部构建此对象。
@@ -37,7 +30,6 @@ public class DefaultOqlClientImpl implements OqlClient {
      */
     DefaultOqlClientImpl(OqlCoreProfile coreProfile) {
         this.coreProfile = coreProfile;
-        this.walker = new ParseTreeWalker();
     }
 
     @Override
@@ -67,17 +59,9 @@ public class DefaultOqlClientImpl implements OqlClient {
      * @return where条件监听器
      */
     private <T> WhereStatementListener doWhere(String whereOqlExp, Collection<T> srcCol) {
-        WhereStatementLexer lexer = new WhereStatementLexer(CharStreams.fromString(whereOqlExp));
-        CommonTokenStream tokens = new CommonTokenStream(lexer);
-        WhereStatementParser parser = new WhereStatementParser(tokens);
-
-        // 删除默认错误监听器并使用指定的监听器
-        parser.removeErrorListeners();
-        parser.addErrorListener(ThrowErrorListener.getInstance());
-
         // 执行语法遍历
         WhereStatementListener<T> listener = new WhereStatementListener(this.coreProfile, srcCol);
-        walker.walk(listener, parser.parse());
+        antlrLauncher.emitWhereWalk(whereOqlExp, listener);
         return listener;
     }
 
