@@ -24,7 +24,7 @@ public interface BeanHandler {
     /**
      * 设置字段值。
      * ps：支持嵌套操作，例如sample.display表示操作 sample对象中的display的属性值，
-     *    并且sample对象不允许为null，否则可能抛出异常。
+     *    如果sample对象为null，则尝试进行实例化sample对象，实力化失败则抛出异常。
      * @param bean 操作对象
      * @param fieldName 字段名称
      * @param val 字段值
