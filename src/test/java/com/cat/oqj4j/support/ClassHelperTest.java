@@ -20,19 +20,19 @@ public class ClassHelperTest {
     @Test
     public void testNewInstance() throws Exception {
         Map mapIns = ClassHelper.newInstance(Map.class);
-        System.out.println(Map.class + " 实例化后为 " + mapIns.getClass());
+        TestHelper.printResult( "{}实例化后为 {}", Map.class, mapIns.getClass());
 
         Collection colIns = ClassHelper.newInstance(Collection.class);
-        System.out.println(Collection.class + " 实例化后为 " + colIns.getClass());
+        TestHelper.printResult( "{}实例化后为 {}", Collection.class, colIns.getClass());
 
         List listIns = ClassHelper.newInstance(List.class);
-        System.out.println(List.class + " 实例化后为 " + listIns.getClass());
+        TestHelper.printResult( "{}实例化后为 {}", List.class, listIns.getClass());
 
         Set setIns = ClassHelper.newInstance(Set.class);
-        System.out.println(Set.class + " 实例化后为 " + setIns.getClass());
+        TestHelper.printResult( "{}实例化后为 {}", Set.class, setIns.getClass());
 
         PersonTest personTest = ClassHelper.newInstance(PersonTest.class);
-        System.out.println(PersonTest.class + " 实例化后为 " + personTest.getClass());
+        TestHelper.printResult( "{}实例化后为 {}", PersonTest.class, personTest.getClass());
     }
 
     /**
@@ -46,7 +46,7 @@ public class ClassHelperTest {
             Closeable closeableIns = ClassHelper.newInstance(s);
             Assert.fail("ClassHelper.newInstance进行接口实例化，没有抛出期望的异常" + closeableIns);
         } catch(InstantiationException e) {
-            System.out.println("进行非集合接口实例化抛出预期异常(" + e.getMessage() + ")，测试通过");
+            TestHelper.printResult( "进行非集合接口实例化抛出预期异常({}})，测试通过", e);
         }
 
         try {
@@ -54,7 +54,7 @@ public class ClassHelperTest {
             BigDecimal bigDecimalIns = ClassHelper.newInstance(s);
             Assert.fail("ClassHelper.newInstance进行非空参数构造器实例化，没有抛出期望的异常" + bigDecimalIns);
         } catch(InstantiationException e) {
-            System.out.println("进行非空参数构造器实例化抛出预期异常(" + e.getMessage() + ")，测试通过");
+            TestHelper.printResult( "进行非空参数构造器实例化抛出预期异常({})，测试通过", e);
         }
     }
 }

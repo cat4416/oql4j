@@ -8,7 +8,7 @@ baseType
     |   NUMBER      #NumberVal
     |   BOOLEAN     #BooleanVal
     |   NULL        #NullVal
-    |   FIELDPLACE  #FieldPlaceVal
+    |   fieldPlace  #FieldPlaceVal
     |   funPlace    #FunPlaceVal
     ;
 
@@ -18,8 +18,13 @@ funPlace
     |  'F{' ID ('(' (baseType (',' baseType)*)? ')')?  '}'
     ;
 
+// 定义字段取值占位符
+fieldPlace: '${' idNest '}';
+
+// 定义id嵌套
+idNest:  ID ('.' ID)*;
+
 STRING: ('"' | '\'') .*? ('"' | '\''); // 定义字符串，双引号与单引号都兼容
-FIELDPLACE: '${' ID ('.' ID)* '}'; // 定义字段取值占位符
 
 BOOLEAN: [tT][rR][uU][eE] | [fF][aA][lL][sS][eE]; // 布尔类型
 NULL: [nN][uU][lL][lL]; // 空值
@@ -33,8 +38,8 @@ fragment INT: '0' | [1-9][0-9]*; // 如果0开头，就只能是单个0数字
 fragment SNEXP: [Ee] [+\-]? INT;   // 科学计数法表达式 \-是对-转义
 
 
-AND:  [aA][nN][dD]; // and关键字
-OR:  [oO][rR]; // or关键字
+AND:  [aA][nN][dD] | '&&'; // and关键字
+OR:  [oO][rR] | '||'; // or关键字
 IN:  [iI][nN]; // in关键字
 IS:  [iI][sS]; // is关键字
 BETWEEN:  [bB][eE][tT][wW][eE][eE][nN]; // between关键字

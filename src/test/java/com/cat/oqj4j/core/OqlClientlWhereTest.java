@@ -1,6 +1,7 @@
 package com.cat.oqj4j.core;
 
 import com.cat.oqj4j.support.PersonTest;
+import com.cat.oqj4j.support.TestHelper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,6 +41,12 @@ public class OqlClientlWhereTest {
         result = oqlClient.doWhereExists(whereOqlExp, personTest);
         System.out.println(whereOqlExp + "输出结果为：" + result);
         Assert.assertEquals(false, result);
+
+        // 测试空集合
+        whereOqlExp = " ${name} in ('李白', '张', '飞', 'gwj')";
+        result = oqlClient.doWhereExists(whereOqlExp, Collections.emptyList());
+        System.out.println(whereOqlExp + "输出结果为：" + result);
+        Assert.assertEquals(false, result);
     }
 
     /**
@@ -53,7 +60,7 @@ public class OqlClientlWhereTest {
         personTest.setName("0");
         String whereOqlExp = " ${name}";
         boolean result = oqlClient.doWhereExists(whereOqlExp, personTest);
-        System.out.println(whereOqlExp +"输出结果为：" + result);
+        TestHelper.printResult("{} 输出结果为：{} ", whereOqlExp, result);
         Assert.assertEquals(false, result);
 
 
@@ -111,9 +118,9 @@ public class OqlClientlWhereTest {
         PersonTest personTest = new PersonTest();
         personTest.setName("李白百");
         personTest.setAge(55);
-        String whereOqlExp = " ${age} between 54 and 66";
+        String whereOqlExp = " ${age} between 54 && 66";
         boolean result = oqlClient.doWhereExists(whereOqlExp, personTest);
-        System.out.println(whereOqlExp +"输出结果为：" + result);
+        TestHelper.printResult("{} 输出结果为：{} ", whereOqlExp, result);
         Assert.assertEquals(true, result);
 
 
@@ -135,20 +142,20 @@ public class OqlClientlWhereTest {
         personTest.setAge(55);
         String whereOqlExp = " ${age} = 20 And ${name} = '李白百'";
         boolean result = oqlClient.doWhereExists(whereOqlExp, personTest);
-        System.out.println(whereOqlExp +"输出结果为：" + result);
+        TestHelper.printResult("{} 输出结果为：{} ", whereOqlExp, result);
         Assert.assertEquals(false, result);
 
         whereOqlExp = " ${age} = 20 Or ${name} = '李白百'";
         result = oqlClient.doWhereExists(whereOqlExp, personTest);
-        System.out.println(whereOqlExp +"输出结果为：" + result);
+        TestHelper.printResult("{} 输出结果为：{} ", whereOqlExp, result);
         Assert.assertEquals(true, result);
 
-        whereOqlExp = "${age} = 20 or ${age} = 55 or  ${name} = '李白百' and ${name} = '李飞'";
+        whereOqlExp = "${age} = 20 || ${age} = 55 or  ${name} = '李白百' && ${name} = '李飞'";
         result = oqlClient.doWhereExists(whereOqlExp, personTest);
         System.out.println(whereOqlExp + "输出结果为：" + result);
         Assert.assertEquals(true, result);
 
-        whereOqlExp = "${age} = 20 or (${age} = 55 or  ${name} = '李白百') and ${name} = '李飞'";
+        whereOqlExp = "${age} = 20 or (${age} = 55 ||  ${name} = '李白百') and ${name} = '李飞'";
         result = oqlClient.doWhereExists(whereOqlExp, personTest);
         System.out.println(whereOqlExp + "输出结果为：" + result);
         Assert.assertEquals(false, result);
@@ -167,18 +174,33 @@ public class OqlClientlWhereTest {
         personTest.setAge(55);
         String whereOqlExp = "F{StrLen(${name})} > 2";
         boolean result = oqlClient.doWhereExists(whereOqlExp, personTest);
-        System.out.println(whereOqlExp +"输出结果为：" + result);
+        TestHelper.printResult("{} 输出结果为：{} ", whereOqlExp, result);
         Assert.assertEquals(true, result);
 
         whereOqlExp = "F{StrLen(${name})} = 3";
         result = oqlClient.doWhereExists(whereOqlExp, personTest);
-        System.out.println(whereOqlExp +"输出结果为：" + result);
+        TestHelper.printResult("{} 输出结果为：{} ", whereOqlExp, result);
+        Assert.assertEquals(true, result);
+
+        whereOqlExp = "F{StrLen(${name})} >= 3";
+        result = oqlClient.doWhereExists(whereOqlExp, personTest);
+        TestHelper.printResult("{} 输出结果为：{} ", whereOqlExp, result);
         Assert.assertEquals(true, result);
 
         whereOqlExp = "F{StrLen(${name})} > 3";
         result = oqlClient.doWhereExists(whereOqlExp, personTest);
-        System.out.println(whereOqlExp +"输出结果为：" + result);
+        TestHelper.printResult("{} 输出结果为：{} ", whereOqlExp, result);
         Assert.assertEquals(false, result);
+
+        whereOqlExp = "F{StrLen(${name})} < 3";
+        result = oqlClient.doWhereExists(whereOqlExp, personTest);
+        TestHelper.printResult("{} 输出结果为：{} ", whereOqlExp, result);
+        Assert.assertEquals(false, result);
+
+        whereOqlExp = "F{StrLen(${name})} <= 3";
+        result = oqlClient.doWhereExists(whereOqlExp, personTest);
+        TestHelper.printResult("{} 输出结果为：{} ", whereOqlExp, result);
+        Assert.assertEquals(true, result);
     }
 
     /**
@@ -202,22 +224,22 @@ public class OqlClientlWhereTest {
         }
         String whereOqlExp = " ${age} = 20 or ${name} = '李白百'";
         int result = oqlClient.doWhereCount(whereOqlExp, personTests);
-        System.out.println(whereOqlExp +"输出结果为：" + result);
+        TestHelper.printResult("{} 输出结果为：{} ", whereOqlExp, result);
         Assert.assertEquals(count20Age, result);
 
         whereOqlExp = " ${age} = 20 and ${name} = '李天3'";
         result = oqlClient.doWhereCount(whereOqlExp, personTests);
-        System.out.println(whereOqlExp +"输出结果为：" + result);
+        TestHelper.printResult("{} 输出结果为：{} ", whereOqlExp, result);
         Assert.assertEquals(1, result);
 
         whereOqlExp = " ${age} = 20 and ${name} = '李白百'";
         result = oqlClient.doWhereCount(whereOqlExp, personTests);
-        System.out.println(whereOqlExp +"输出结果为：" + result);
+        TestHelper.printResult("{} 输出结果为：{} ", whereOqlExp, result);
         Assert.assertEquals(0, result);
 
         whereOqlExp = " ${age} = 30";
         result = oqlClient.doWhereCount(whereOqlExp, personTests);
-        System.out.println(whereOqlExp +"输出结果为：" + result);
+        TestHelper.printResult("{} 输出结果为：{} ", whereOqlExp, result);
         Assert.assertEquals(1, result);
     }
 
@@ -242,24 +264,91 @@ public class OqlClientlWhereTest {
         }
         String whereOqlExp = " ${age} = 20 or ${name} = '李白百'";
         List<PersonTest> result = oqlClient.doWhereFilter(whereOqlExp, personTests);
-        System.out.println(whereOqlExp +"输出结果为：" + result);
+        TestHelper.printResult("{} 输出结果为：{} ", whereOqlExp, result);
         Assert.assertEquals(count20Age, result.size());
 
         whereOqlExp = " ${age} = 20 and ${name} = '李天3'";
         result = oqlClient.doWhereFilter(whereOqlExp, personTests);
-        System.out.println(whereOqlExp +"输出结果为：" + result);
+        TestHelper.printResult("{} 输出结果为：{} ", whereOqlExp, result);
         Assert.assertEquals(1, result.size());
 
         whereOqlExp = " ${age} = 20 and ${name} = '李白百'";
         result = oqlClient.doWhereFilter(whereOqlExp, personTests);
-        System.out.println(whereOqlExp +"输出结果为：" + result);
+        TestHelper.printResult("{} 输出结果为：{} ", whereOqlExp, result);
         Assert.assertEquals(0, result.size());
 
 
         whereOqlExp = " ${age} = 30";
         result = oqlClient.doWhereFilter(whereOqlExp, personTests);
-        System.out.println(whereOqlExp +"输出结果为：" + result);
+        TestHelper.printResult("{} 输出结果为：{} ", whereOqlExp, result);
         Assert.assertEquals(1, result.size());
     }
+
+
+    /**
+     * 测试 执行Where条件 异常情况
+     * @throws Exception
+     */
+    @Test
+    public void testDoWhereException() throws Exception {
+        // 测试空表达式
+        try {
+            String whereOqlExp = null;
+            PersonTest personTest = new PersonTest();
+            personTest.setName("李白百");
+            personTest.setAge(55);
+            boolean result = oqlClient.doWhereExists(whereOqlExp, personTest);
+            Assert.fail("where条件表达式为null，没有抛出期望的异常，且执行结果为：" + result);
+        } catch(Exception e) {
+            TestHelper.printResult("where条件表达式为null，抛出期望的异常({})，测试通过 ", e);
+        }
+
+        // 测试操作原对象为null
+        try {
+            String whereOqlExp = " ${name} = '李白百' ";
+            PersonTest personTest = null;
+            boolean result = oqlClient.doWhereExists(whereOqlExp, personTest);
+            Assert.fail("where条件操作原对象为null，没有抛出期望的异常，且执行结果为：" + result);
+        } catch(Exception e) {
+            TestHelper.printResult("where条件操作原对象为null，抛出期望的异常({})，测试通过 ", e);
+        }
+
+
+        // 测试操作原对象集合为null
+        try {
+            String whereOqlExp = " ${name} = '李白百' ";
+            Collection cols = null;
+            boolean result = oqlClient.doWhereExists(whereOqlExp, cols);
+            Assert.fail("where条件操作原对象集合为null，没有抛出期望的异常，且执行结果为：" + result);
+        } catch(Exception e) {
+            TestHelper.printResult("where条件操作原对象集合为null，抛出期望的异常({})，测试通过 ", e);
+        }
+
+        // 测试操作原对象集合的元素存在null的情况
+        try {
+            String whereOqlExp = " ${name} = '李白百' ";
+            List<PersonTest> personTests = new ArrayList<>();
+            personTests.add(new PersonTest());
+            personTests.add(null);
+            boolean result = oqlClient.doWhereExists(whereOqlExp, personTests);
+            Assert.fail("where条件操作原对象集合的元素存在null，没有抛出期望的异常，且执行结果为：" + result);
+        } catch(Exception e) {
+            TestHelper.printResult("where条件操作原对象集合的元素存在null，抛出期望的异常({})，测试通过 ", e);
+        }
+
+        // 测试取不存在的字段值
+        try {
+            String whereOqlExp = " ${myName} = '李白百' ";
+            List<PersonTest> personTests = new ArrayList<>();
+            personTests.add(new PersonTest());
+            personTests.add(null);
+            boolean result = oqlClient.doWhereExists(whereOqlExp, personTests);
+            Assert.fail("where条件取不存在的字段值，没有抛出期望的异常，且执行结果为：" + result);
+        } catch(Exception e) {
+            TestHelper.printResult("where条件取不存在的字段值，抛出期望的异常({})，测试通过 ", e);
+        }
+
+    }
+
 
 }

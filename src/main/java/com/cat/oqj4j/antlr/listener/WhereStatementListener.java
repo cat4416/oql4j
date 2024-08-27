@@ -48,6 +48,10 @@ public class WhereStatementListener<T> extends WhereStatementBaseListener {
      */
     private final Deque<LegalObjPack> legalObjStack = new LinkedList<>();
     /**
+     * 是否已取出结果
+     */
+    private boolean isAlreadFetchResult;
+    /**
      * 构造对象
      * @param srcCol 原对象
      */
@@ -288,6 +292,7 @@ public class WhereStatementListener<T> extends WhereStatementBaseListener {
      */
     public List<T> getColResult() {
         checkBeforeGetResult();
+        this.isAlreadFetchResult = true;
         LegalObjPack legalObjPack = legalObjStack.pop();
         List<T> result;
         if (legalObjPack.isAllSatisfied()) {
@@ -311,6 +316,7 @@ public class WhereStatementListener<T> extends WhereStatementBaseListener {
      */
     public boolean getBolResult() {
         checkBeforeGetResult();
+        this.isAlreadFetchResult = true;
         LegalObjPack legalObjPack = legalObjStack.pop();
         boolean result;
         if (legalObjPack.isNoLegalObjs()) {
@@ -327,6 +333,7 @@ public class WhereStatementListener<T> extends WhereStatementBaseListener {
      */
     public int getCountResult() {
         checkBeforeGetResult();
+        this.isAlreadFetchResult = true;
         LegalObjPack legalObjPack = legalObjStack.pop();
         int result;
         if (legalObjPack.isNoLegalObjs()) {
@@ -343,10 +350,17 @@ public class WhereStatementListener<T> extends WhereStatementBaseListener {
      * 获取结果前的校验
      */
     private void checkBeforeGetResult() {
+        // 不考虑需要多次获取结果的情况
+        if (isAlreadFetchResult) {
+            throw new OqlExpResolvedException("结果已经被取出，请勿重复调用");
+        }
+
         int size = legalObjStack.size();
         if (size == 0) {
             throw new OqlExpResolvedException("请先执行语法树遍历");
-        } else if (size > 1) {
+        }
+
+        if (size > 1) {
             throw new OqlExpResolvedException("语法解析执行异常，存在多个结果集");
         }
     }

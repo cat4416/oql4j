@@ -147,4 +147,16 @@ public interface WhereStatementVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitFunPlace(WhereStatementParser.FunPlaceContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link WhereStatementParser#fieldPlace}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFieldPlace(WhereStatementParser.FieldPlaceContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link WhereStatementParser#idNest}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIdNest(WhereStatementParser.IdNestContext ctx);
 }

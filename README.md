@@ -127,6 +127,7 @@ System.out.println(result);
   | CastChar | 转换为Character | CastChar(arg1)，arg1：用于转换为Character的参数 | 将传入的参数转换为Character，如果参数为null或者为""字符串，则返回null，长度大于1则转换报错。 |
   | CastBool | 转换为Boolean | CastBool(arg1)，arg1：用于转换为Boolean的参数 | 将传入的参数转换为Boolean，如果参数为null，则返回null。数值0和false字符串都属于假，1和true字符串则属于真(false和true字符串不区分大小写)。 |
   | ClassSimpleName | 获取Class简短名称 | ClassSimpleName(arg1)，arg1：用于获取Class字节码对象的简短名称的参数 | 将传入的参数去除Class字节码对象并获取简短名称，如果参数为null，则返回"null"字符串 |
+  | NotExistNull | 判断全部参数都不为null | NotExistNull(arg1,arg2,arg3...)，需要判断的参数，不限制参数数量 | 将传入的参数逐一判断，如果都不为null则返回true，反之false。如果没有参入任何参数，则返回true |
 
   
 # 四、约定说明

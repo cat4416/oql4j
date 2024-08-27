@@ -13,7 +13,7 @@ public interface BeanHandler {
     /**
      * 获取字段值。
      * ps：支持嵌套操作，例如sample.display表示操作 sample对象中的display的属性值，
-     *    并且sample对象不允许为null，否则可能抛出异常。
+     *    如果sample对象为null，则直接返回null。
      * @param bean 操作对象
      * @param fieldName 字段名称
      * @return 字段值

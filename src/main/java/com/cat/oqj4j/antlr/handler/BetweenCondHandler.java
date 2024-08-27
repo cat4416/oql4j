@@ -1,10 +1,7 @@
 package com.cat.oqj4j.antlr.handler;
 
-import com.cat.oqj4j.antlr.type.BetweenCondExpType;
-import com.cat.oqj4j.antlr.type.ConstValExpType;
-import com.cat.oqj4j.antlr.type.DynamicValExpType;
-import com.cat.oqj4j.antlr.type.ExpType;
-import com.cat.oqj4j.exception.OqlExpResolvedException;
+import com.cat.oqj4j.antlr.type.*;
+import com.cat.oqj4j.support.AntlrHelper;
 import com.cat.oqj4j.support.LegalObjPack;
 import com.cat.oqj4j.support.OpeDiagnotor;
 
@@ -31,26 +28,12 @@ public class BetweenCondHandler extends AbstractCondHandler<BetweenCondExpType>{
         for (Object srcObj : srcCol) {
             Object nameVal = nameExp.getVal(srcObj);
 
-            Object maxVal;
-            if (maxExp instanceof DynamicValExpType) {
-                maxVal = ((DynamicValExpType) maxExp).getVal(srcObj);
-            } else if (maxExp instanceof ConstValExpType) {
-                maxVal = ((ConstValExpType<?>) maxExp).getVal();
-            } else {
-                throw new OqlExpResolvedException(maxExp.getExp() + "表达式类型无法识别");
-            }
+            Object maxVal = AntlrHelper.getExpVal(srcObj, maxExp);
             // 是否在最大值界限内
             boolean isMaxBound = opeDiagnotor.diagnoseLE(nameVal, maxVal);
             // 符合最大值的情况下，再进一步判断最小值
             if (isMaxBound) {
-                Object minVal;
-                if (minExp instanceof DynamicValExpType) {
-                    minVal = ((DynamicValExpType) minExp).getVal(srcObj);
-                } else if (minExp instanceof ConstValExpType) {
-                    minVal = ((ConstValExpType) minExp).getVal();
-                } else {
-                    throw new OqlExpResolvedException(minExp.getExp() + "表达式类型无法识别");
-                }
+                Object minVal = AntlrHelper.getExpVal(srcObj, minExp);
                 // 是否达到最小值门槛
                 boolean isMinThreshold = opeDiagnotor.diagnoseGE(nameVal, minVal);
                 if (isMinThreshold) {
@@ -72,26 +55,12 @@ public class BetweenCondHandler extends AbstractCondHandler<BetweenCondExpType>{
         // 判断最大值与最小值是否存在动态变量
         if (maxExp instanceof DynamicValExpType || minExp instanceof DynamicValExpType) {
             for (Object srcObj : srcCol) {
-                Object maxVal;
-                if (maxExp instanceof DynamicValExpType) {
-                    maxVal = ((DynamicValExpType) maxExp).getVal(srcObj);
-                } else if (maxExp instanceof ConstValExpType) {
-                    maxVal = ((ConstValExpType<?>) maxExp).getVal();
-                } else {
-                    throw new OqlExpResolvedException(maxExp.getExp() + "表达式类型无法识别");
-                }
+                Object maxVal = AntlrHelper.getExpVal(srcObj, maxExp);
                 // 是否在最大值界限内
                 boolean isMaxBound = opeDiagnotor.diagnoseLE(nameVal, maxVal);
                 // 符合最大值的情况下，再进一步判断最小值
                 if (isMaxBound) {
-                    Object minVal;
-                    if (minExp instanceof DynamicValExpType) {
-                        minVal = ((DynamicValExpType) minExp).getVal(srcObj);
-                    } else if (minExp instanceof ConstValExpType) {
-                        minVal = ((ConstValExpType<?>) minExp).getVal();
-                    } else {
-                        throw new OqlExpResolvedException(minExp.getExp() + "表达式类型无法识别");
-                    }
+                    Object minVal = AntlrHelper.getExpVal(srcObj, minExp);
                     // 是否达到最小值门槛
                     boolean isMinThreshold = opeDiagnotor.diagnoseGE(nameVal, minVal);
                     if (isMinThreshold) {

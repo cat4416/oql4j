@@ -1,10 +1,8 @@
 package com.cat.oqj4j.antlr.handler;
 
-import com.cat.oqj4j.antlr.type.BinaryCondExpType;
-import com.cat.oqj4j.antlr.type.ConstValExpType;
-import com.cat.oqj4j.antlr.type.DynamicValExpType;
-import com.cat.oqj4j.antlr.type.ExpType;
+import com.cat.oqj4j.antlr.type.*;
 import com.cat.oqj4j.exception.OqlExpResolvedException;
+import com.cat.oqj4j.support.AntlrHelper;
 import com.cat.oqj4j.support.LegalObjPack;
 import com.cat.oqj4j.support.OpeDiagnotor;
 import com.cat.oqj4j.support.OperatorEnum;
@@ -32,15 +30,7 @@ public class BinaryCondHandler extends AbstractCondHandler<BinaryCondExpType> {
         OperatorEnum operatorEnum = OperatorEnum.resolveOpeFlag(operator.getExp());
         for (Object srcObj : srcCol) {
             Object leftVal = leftExp.getVal(srcObj);
-            Object rightVal;
-
-            if (rightExp instanceof DynamicValExpType) {
-                rightVal = ((DynamicValExpType) rightExp).getVal(srcObj);
-            } else if (rightExp instanceof ConstValExpType) {
-                rightVal = ((ConstValExpType<?>) rightExp).getVal();
-            } else {
-                throw new OqlExpResolvedException(rightExp.getExp() + "表达式类型无法识别");
-            }
+            Object rightVal = AntlrHelper.getExpVal(srcObj, rightExp);
 
             boolean isStatisfied = opeDiagnotor.diagnose(leftVal, rightVal, operatorEnum);
             if (isStatisfied) {

@@ -17,6 +17,7 @@ public abstract class ClassHelper {
         T instance = null;
          try {
              if (clazz.isInterface()) {
+                 // 对集合接口进行特殊转化
                  if (clazz.equals(Map.class)) {
                      instance = (T) new HashMap();
                  } else if (clazz.equals(Collection.class)) {

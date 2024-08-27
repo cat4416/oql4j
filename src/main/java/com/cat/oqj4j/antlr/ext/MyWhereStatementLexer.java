@@ -6,7 +6,7 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.RecognitionException;
 
 /**
- * 对表达式词法分析程序进行扩展定制
+ * 对 where 表达式词法分析程序进行扩展定制
  * @author gwj
  */
 public class MyWhereStatementLexer extends WhereStatementLexer {

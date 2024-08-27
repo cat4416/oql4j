@@ -241,4 +241,24 @@ public interface WhereStatementListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFunPlace(WhereStatementParser.FunPlaceContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link WhereStatementParser#fieldPlace}.
+	 * @param ctx the parse tree
+	 */
+	void enterFieldPlace(WhereStatementParser.FieldPlaceContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link WhereStatementParser#fieldPlace}.
+	 * @param ctx the parse tree
+	 */
+	void exitFieldPlace(WhereStatementParser.FieldPlaceContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link WhereStatementParser#idNest}.
+	 * @param ctx the parse tree
+	 */
+	void enterIdNest(WhereStatementParser.IdNestContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link WhereStatementParser#idNest}.
+	 * @param ctx the parse tree
+	 */
+	void exitIdNest(WhereStatementParser.IdNestContext ctx);
 }

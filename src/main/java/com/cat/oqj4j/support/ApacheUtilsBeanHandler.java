@@ -18,6 +18,9 @@ public class ApacheUtilsBeanHandler implements BeanHandler {
     public <T> T getFieldVal(Object bean, String fieldName) throws BeanHandlingException {
         try {
             return (T) PropertyUtils.getProperty(bean, fieldName);
+        }  catch(NestedNullException e) {
+            // 嵌套值为空，直接返回null
+            return null;
         }  catch(NoSuchMethodException e) {
             throw new BeanHandlingException(StrHelper.fillPlaceholder("获取{}字段值异常：{}", fieldName, e.getMessage()));
         } catch(Exception e) {

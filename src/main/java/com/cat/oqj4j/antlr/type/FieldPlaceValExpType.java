@@ -37,13 +37,22 @@ public class FieldPlaceValExpType implements DynamicValExpType {
     @Override
     public Object getVal(Object srcObj) {
         try {
-            // 取值表达式格式${fieldName}，需要取出fieldName
-            String fieldName = exp.replaceFirst("\\$\\{(.*)\\}", "$1");
+            String fieldName = getFieldName(this.exp);
             return oqlCore.getBeanHandler().getFieldVal(srcObj, fieldName);
         } catch (OqlExpResolvedException e) {
             throw e;
         } catch (Exception e) {
             throw new OqlExpResolvedException("处理" + exp + "表达式异常", e);
         }
+    }
+
+    /**
+     * 获取字段名称
+     * @param expStr 表达式字符串
+     * @return 字段名称
+     */
+    public static String getFieldName(String expStr) {
+        // 取值表达式格式${fieldName}，需要取出fieldName
+        return expStr.replaceFirst("\\$\\{(.*)\\}", "$1");
     }
 }

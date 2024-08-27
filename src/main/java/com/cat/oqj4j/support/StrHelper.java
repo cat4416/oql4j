@@ -62,4 +62,22 @@ public abstract class StrHelper {
 
         return builder.toString();
     }
+
+    /**
+     * 是否空字符串。null、""、"   "都属于空字符串。
+     * @param str 字符串
+     * @return
+     */
+    public static boolean isBlank(String str) {
+        return str == null || str.trim().length() == 0;
+    }
+
+    /**
+     * 是否为非空字符串。null、""、"   "都属于空字符串。
+     * @param str 字符串
+     * @return
+     */
+    public static boolean isNotBlank(String str) {
+        return !isBlank(str);
+    }
 }

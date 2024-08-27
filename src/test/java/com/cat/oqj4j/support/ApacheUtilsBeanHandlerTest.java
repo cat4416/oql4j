@@ -35,15 +35,15 @@ public class ApacheUtilsBeanHandlerTest {
         map.put("addr", addr);
 
         Object result1 = apacheUtilsBeanHandler.getFieldVal(map, "name");
-        System.out.println("result1=" + result1);
+        TestHelper.printResult("result1={}", result1);
         Assert.assertEquals("gwj", result1);
 
         Object result2 = apacheUtilsBeanHandler.getFieldVal(map, "addr.city");
-        System.out.println("result2=" + result2);
+        TestHelper.printResult("result2=", result2);
         Assert.assertEquals("广州市", result2);
 
         Object result3 = apacheUtilsBeanHandler.getFieldVal(map, "addr.town");
-        System.out.println("result3=" + result3);
+        TestHelper.printResult("result3=", result3);
         Assert.assertEquals(null, result3);
     }
 
@@ -59,10 +59,10 @@ public class ApacheUtilsBeanHandlerTest {
         addr.put("city", "广州市");
         map.put("addr", addr);
 
-        System.out.println("before: " + map);
+        TestHelper.printResult("before: {}", map);
         apacheUtilsBeanHandler.setFieldVal(map, "name", "张三");
         apacheUtilsBeanHandler.setFieldVal(map, "addr.city", "惠州市");
-        System.out.println("after: " + map);
+        TestHelper.printResult("after: {}", map);
 
         PersonTest personTest = new PersonTest();
         // 复杂属性也支持自动实例化
@@ -71,7 +71,7 @@ public class ApacheUtilsBeanHandlerTest {
         apacheUtilsBeanHandler.setFieldVal(personTest, "age", 32);
         // 测试复杂属性的嵌套赋值
         apacheUtilsBeanHandler.setFieldVal(personTest, "addr.city", "惠州市");
-        System.out.println(personTest);
+        TestHelper.printResult("设置复杂属性后的结果：{}", personTest);
 
     }
 
@@ -81,21 +81,21 @@ public class ApacheUtilsBeanHandlerTest {
      */
     @Test
     public void testSetFieldValException() throws Exception {
-        System.out.println("测试异常情况testSetFieldValException");
+        TestHelper.printResult("测试异常情况testSetFieldValException");
         PersonTest personTest = new PersonTest();
         // 类型不同进行设置，期望抛出异常
         try {
             apacheUtilsBeanHandler.setFieldVal(personTest, "name", 998);
             Assert.fail("apacheUtilsBeanHandler.setFieldVal没有抛出期望的BeanHandlingException异常");
         } catch(BeanHandlingException e) {
-            System.out.println("设置类型不同抛出期望异常("  + e.getMessage() + ")，测试通过。");
+            TestHelper.printResult("设置类型不同抛出期望异常({})，测试通过。", e);
         }
 
         try {
             apacheUtilsBeanHandler.setFieldVal(personTest, "age", "32");
             Assert.fail("apacheUtilsBeanHandler.setFieldVal没有抛出期望的BeanHandlingException异常");
         } catch(BeanHandlingException e) {
-            System.out.println("设置类型不同抛出期望异常("  + e.getMessage() + ")，测试通过。");
+            TestHelper.printResult("设置类型不同抛出期望异常({})，测试通过。", e);
         }
     }
 
@@ -110,7 +110,7 @@ public class ApacheUtilsBeanHandlerTest {
         addr.put("city", "广州市");
 
         PersonTest dest = new PersonTest();
-        System.out.println("before: " + dest);
+        TestHelper.printResult("before: {}", dest);
 
 
         Map<String, Object> mapOrig = new HashMap();
@@ -119,7 +119,7 @@ public class ApacheUtilsBeanHandlerTest {
         mapOrig.put("other", "知识份子");
 
         apacheUtilsBeanHandler.copyBean(dest, mapOrig);
-        System.out.println("after: " + dest);
+        TestHelper.printResult("after: {}", dest);
 
 
         PersonTest origPerson = new PersonTest();
@@ -127,7 +127,7 @@ public class ApacheUtilsBeanHandlerTest {
         origPerson.setAddr(addr);
 
         apacheUtilsBeanHandler.copyBean(dest, origPerson);
-        System.out.println("after2: " + dest);
+        TestHelper.printResult("after2:{} ", dest);
     }
 
 }

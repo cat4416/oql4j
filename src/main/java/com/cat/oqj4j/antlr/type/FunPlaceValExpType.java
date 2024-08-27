@@ -3,6 +3,7 @@ package com.cat.oqj4j.antlr.type;
 import com.cat.oqj4j.antlr.handler.FunHandler;
 import com.cat.oqj4j.core.OqlCoreProfile;
 import com.cat.oqj4j.exception.OqlExpResolvedException;
+import com.cat.oqj4j.support.AntlrHelper;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -48,20 +49,7 @@ public class FunPlaceValExpType implements DynamicValExpType {
         this.exp = exp;
         this.srcCol = srcCol;
         this.oqlCore = oqlCore;
-        // 从表达式中取出函数名称，函数表达式格式：F{name}、F{name()}、F{name(arg1,arg2,arg3...)}
-        char[] expChars = exp.toCharArray();
-        int offset = 0, count = 0;
-        for (int i = 0; i < expChars.length; i++) {
-            if (expChars[i] == '{') {
-                // 当前字符{的下一个字符则为函数名称开始索引
-                offset = i + 1;
-            } else if (expChars[i] == '(' || expChars[i] == '}') {
-                // 当前字符(或}的前一个字符则为函数名称结束索引
-                count = i - offset;
-                break;
-            }
-        }
-        this.funName = new String(expChars, offset, count);
+        this.funName = getFunName(exp);
     }
 
     /**
@@ -104,14 +92,7 @@ public class FunPlaceValExpType implements DynamicValExpType {
                 args = new Object[argExpTypes.size()];
                 for (int i = 0; i < argExpTypes.size(); i++) {
                     ValExpType argExpType = argExpTypes.get(i);
-                    Object val;
-                    if (argExpType instanceof DynamicValExpType) {
-                        val = ((DynamicValExpType) argExpType).getVal(srcObj);
-                    } else if (argExpType instanceof ConstValExpType) {
-                        val = ((ConstValExpType<?>) argExpType).getVal();
-                    }  else {
-                        throw new OqlExpResolvedException(argExpType.getExp() + "表达式类型无法识别");
-                    }
+                    Object val = AntlrHelper.getExpVal(srcObj, argExpType);
                     args[i] = val;
                 }
             }
@@ -121,5 +102,28 @@ public class FunPlaceValExpType implements DynamicValExpType {
         } catch(Exception e) {
             throw new OqlExpResolvedException(this.exp + "表达式处理失败", e);
         }
+    }
+
+    /**
+     * 获取函数名称
+     * @param expStr 表达式字符串
+     * @return 字段名称
+     */
+    public static String getFunName(String expStr) {
+        // 从表达式中取出函数名称，函数表达式格式：F{name}、F{name()}、F{name(arg1,arg2,arg3...)}
+        char[] expChars = expStr.toCharArray();
+        int offset = 0, count = 0;
+        for (int idx = 0; idx < expChars.length; idx++) {
+            if (expChars[idx] == '{') {
+                // 当前字符{的下一个字符则为函数名称开始索引
+                offset = idx + 1;
+            } else if (expChars[idx] == '(' || expChars[idx] == '}') {
+                // 当前字符(或}的前一个字符则为函数名称结束索引
+                count = idx - offset;
+                break;
+            }
+        }
+
+        return new String(expChars, offset, count);
     }
 }

@@ -23,6 +23,10 @@ public class PersonTest {
      * 地址
      */
     private Map<String, String> addr;
+    /**
+     * 资产。使用基础类型测试。
+     */
+    private int property;
 
     public String getName() {
         return name;
@@ -68,13 +72,22 @@ public class PersonTest {
         addr.put(key, val);
     }
 
+    public int getProperty() {
+        return property;
+    }
+
+    public void setProperty(int property) {
+        this.property = property;
+    }
+
     @Override
     public String toString() {
         return "PersonTest{" +
-                "name='" + name + '\'' +
+                "name=" + name +
                 ", age=" + age +
                 ", isMan=" + isMan +
                 ", addr=" + addr +
+                ", property=" + property +
                 '}';
     }
 }

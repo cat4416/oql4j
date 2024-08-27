@@ -47,12 +47,13 @@ public class LegalObjPack {
     }
 
     /**
-     * 如果达到合法数量转移为全部符合
+     * 如果达到合法数量转移为全部符合。
      * @param legalSize 合法对象数量
      * @return 转移结果。true表示全部转移为符合。
      */
     public boolean transferAllSatisfiedIf(int legalSize) {
-        if (legalSize == getLegalObjs().size()) {
+        // 要求必须要有数量
+        if (legalSize != 0 && legalSize == getLegalObjs().size()) {
             this.transferAllSatisfied();
         }
         return isAllSatisfied;

@@ -252,6 +252,30 @@ public class WhereStatementBaseListener implements WhereStatementListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFunPlace(WhereStatementParser.FunPlaceContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFieldPlace(WhereStatementParser.FieldPlaceContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFieldPlace(WhereStatementParser.FieldPlaceContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIdNest(WhereStatementParser.IdNestContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIdNest(WhereStatementParser.IdNestContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
