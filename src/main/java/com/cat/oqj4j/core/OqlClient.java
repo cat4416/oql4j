@@ -2,6 +2,7 @@ package com.cat.oqj4j.core;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Oql客户端。
@@ -41,4 +42,50 @@ public interface OqlClient {
      * @return 符合where条件的记录
      */
     <T> List<T> doWhereFilter(String whereOqlExp, Collection<T> srcCol);
+
+    /**
+     * 执行Select映射
+     * @param selectOqlExp select的oql表达式
+     * @param srcObj 提供操作的来源对象
+     * @param targetClass 用于封装数据的目标类型
+     * @return 映射结果
+     */
+    <T> T doSelect(String selectOqlExp, Object srcObj, Class<T> targetClass);
+    /**
+     * 执行Select映射
+     * @param selectOqlExp select的oql表达式
+     * @param srcCol 提供操作的来源集合
+     * @param targetClass 用于封装数据的目标类型
+     * @return 映射结果
+     */
+    <T> List<T> doSelect(String selectOqlExp, Collection<?> srcCol, Class<T> targetClass);
+
+    /**
+     * 执行Select映射
+     * @param selectOqlExp select的oql表达式。不可为空。
+     * @param whereOqlExp where条件oql表达式。可为空。
+     * @param srcCol 提供操作的来源集合
+     * @param targetClass 用于封装数据的目标类型
+     * @return 映射结果
+     */
+    <T> List<T> doSelect(String selectOqlExp, String whereOqlExp,
+                         Collection<?> srcCol, Class<T> targetClass);
+
+    /**
+     * 执行Select映射
+     * @param selectOqlExp select的oql表达式。不可为空。
+     * @param whereOqlExp where条件oql表达式。可为空。
+     * @param srcCol 提供操作的来源集合
+     * @return 映射结果
+     */
+    List<Map<String, Object>> doSelect(String selectOqlExp, String whereOqlExp,
+                                       Collection<?> srcCol);
+
+    /**
+     * 执行Select映射
+     * @param selectOqlExp select的oql表达式。不可为空。
+     * @param srcObj 提供操作的来源对象
+     * @return 映射结果
+     */
+    Map<String, Object> doSelect(String selectOqlExp, Object srcObj);
 }
