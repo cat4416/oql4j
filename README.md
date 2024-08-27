@@ -69,12 +69,14 @@ System.out.println(result);
 
 ### 3.1.2 并且条件
 - 对多个条件进行交集处理，and关键字不区分大小写，即and、And、AND 都能识别。
-- and的优先级比or要高
+- 支持用 && 代替and关键字。例如：```${name} = '张三' and ${age} > 20``` 等价于 ```${name} = '张三' && ${age} > 20```
+- and的优先级比or要高。
 
 
 ### 3.1.3 或者条件
 - 对多个条件进行并集处理，or关键字不区分大小写，即or、Or、OR 都能识别。
-- or的优先级小于and
+- 支持用 || 代替or关键字。例如：```${name} = '张三' or ${age} > 20``` 等价于 ```${name} = '张三' || ${age} > 20```
+- or的优先级小于and。
 
 
 ### 3.1.4 括号运算
@@ -93,8 +95,8 @@ System.out.println(result);
 
 ### 3.1.6 范围条件
 - 当需要判断范围时，可以使用between关键字，关键字不区分大小写，即between、Between、BETWEEN等都能识别。
-- 格式为``` keyName between arg1 and arg2```， 大于等于arg1 并且小于等于 arg2，等价于 >=arg1 and <=arg2。
-  例如  ```${age} between 20 and 30 ```表示年龄在[20,30]范围内，20、21、29、30等均符合。
+- 格式为``` keyName between arg1 and arg2、keyName between arg1 && arg2 ```， 大于等于arg1 并且小于等于 arg2，等价于 >=arg1 and <=arg2。
+  例如  ```${age} between 20 and 30 ```表示年龄在[20,30]范围内，20、21、29、30等均符合，用&&写法则为```${age} between 20 && 30 ```
   
 ### 3.1.7 等于空
 - 用于判断值是否为null，使用 is null 关键字，关键字不区分大小写， is、IS、null、Null、NULL等都能识别。
