@@ -111,7 +111,7 @@ public class AntlrLauncher {
      * @return 语法解析树
      */
     public void emitSelectWalk(String selectOqlExp) {
-        this.emitWhereWalk(selectOqlExp, defaultSelectListener);
+        this.emitSelectWalk(selectOqlExp, defaultSelectListener);
     }
 
 
