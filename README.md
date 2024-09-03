@@ -15,7 +15,7 @@ oql4j 全称 Object Query Language For Java，即java版本的对象查询语言
 OqlClientBuilder oqlClientBuilder = new OqlClientBuilder();
 OqlClient oqlClient = oqlClientBuilder.build();
 ```
-然后就可以使用oqlClient对象，进行各种where条件的操作，select的映射擦互相，例如操作oqlClient.doWhereFilter(...)、oqlClient.doSelect(...)<br/>
+然后就可以使用oqlClient对象，进行各种where条件的操作，select的映射查询，例如操作oqlClient.doWhereFilter(...)、oqlClient.doSelect(...)<br/>
 OqlClient接口的默认实现类是DefaultOqlClientImpl，此类是线程安全的，所以**oqlClient对象可作为单例在整个项目中使用**。 
 
 
