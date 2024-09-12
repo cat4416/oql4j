@@ -19,7 +19,7 @@ OqlClient oqlClient = oqlClientBuilder.build();
 OqlClient接口的默认实现类是DefaultOqlClientImpl，此类是线程安全的，所以**oqlClient对象可作为单例在整个项目中使用**。 
 
 
-## 2.3 Where条件使用案例的demo
+## 2.3 Where条件过滤使用案例
 ```
 OqlClientBuilder oqlClientBuilder = new OqlClientBuilder();
 OqlClient oqlClient = oqlClientBuilder.build();
@@ -36,7 +36,7 @@ System.out.println(result);
 更多的使用demo，可参考代码的测试用例：com.cat.oqj4j.core.OqlClientlWhereTest
 
 
-## 2.4 Select映射使用案例的demo
+## 2.4 Select映射查询使用案例
 ```
 OqlClientBuilder oqlClientBuilder = new OqlClientBuilder();
 OqlClient oqlClient = oqlClientBuilder.build();
@@ -52,6 +52,14 @@ MyPersonTest result = oqlClient.doSelect(selectOqlExp, p01, MyPersonTest.class);
 ```
 更多的使用demo，可参考代码的测试用例：com.cat.oqj4j.core.OqlClientlSelectTest
 
+## 2.4 语法检查工具使用
+为方便快速检查语法格式是否正确，提供了静态的检查工具类com.cat.oqj4j.support.GrammarCheckHelper，方便执行语法检查。
+使用代码如下：
+```
+String selectOqlExp = "F{StrLen(${name})}, true isMan, 26 as age, ${hobby} myHobby";
+boolean result = GrammarCheckHelper.verifySelectExp(selectOqlExp);
+```
+更多的使用demo，可参考代码的测试用例：com.cat.oqj4j.support.GrammarCheckHelperTest
 
 # 三、语法规则
 ## 3.1 语法基础
@@ -170,7 +178,7 @@ MyPersonTest result = oqlClient.doSelect(selectOqlExp, p01, MyPersonTest.class);
 ### 3.3.1 使用格式：
 - 直接写需要映射的字段，字段间使用英文逗号分隔，例如： name1, name2, name3, name4 ...
 
-### 3.3.1 指定映射别名：
+### 3.3.2 指定映射别名：
 - 默认不指定的情况下，则直接用原字段名称，例如： ${name1}, ${name2} 表示取原对象的name1和name2属性，并映射赋值到目标对象的name1和name2属性。<br/><br/>
   如果是使用${}动态取值，默认情况下映射到目标对象的名称为取值字段名，例如${name} 表示取原对象的name属性，并映射赋值到目标对象的name属性。<br/><br/>
   如果是F{}函数，默认情况下映射到目标对象的名称为函数名，例如F{ClassSimpleName(${name})} 表示取原对象的name属性，并执行ClassSimpleName函数后，将结果映射赋值到目标对象的ClassSimpleName属性。
@@ -180,7 +188,8 @@ MyPersonTest result = oqlClient.doSelect(selectOqlExp, p01, MyPersonTest.class);
 - 使用AS关键字指定，并且as关键字不区分大小写。例如：${name1} AS fatherName, ${name2} as motherName 表示取原对象的name1和name2属性，并映射赋值到目标对象的fatherName和motherName属性。
   <br/><br/>
 
-
+### 3.3.3 结合Where条件过滤使用：
+- Select映射查询，是可以与Where条件过滤配套使用的，先执行Where条件过滤，将符合条件的数据再进行Select映射查询。OqlClient客户端有提供相应的api接口可调用。
   
 # 四、约定说明
 ## 4.1 比较说明
