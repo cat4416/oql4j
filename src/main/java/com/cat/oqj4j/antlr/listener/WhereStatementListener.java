@@ -53,6 +53,7 @@ public class WhereStatementListener<T> extends WhereStatementBaseListener {
     private boolean isAlreadFetchResult;
     /**
      * 构造对象
+     * @param coreProfile 核销剖面
      * @param srcCol 原对象
      */
     public WhereStatementListener(OqlCoreProfile coreProfile, Collection<T> srcCol) {

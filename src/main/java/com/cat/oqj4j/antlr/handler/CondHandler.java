@@ -26,7 +26,7 @@ public interface CondHandler<T extends CondExpType> {
 
     /**
      * 获取能支持的表达式类型
-     * @return
+     * @return 返回获取的表达式类型
      */
     public Class<T> getSupportedExpType();
 }

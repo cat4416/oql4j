@@ -44,7 +44,7 @@ public class AntlrLauncher {
 
     /**
      * 获取实例对象
-     * @return
+     * @return 获取实例
      */
     public static AntlrLauncher getInstance() {
         return instance;
@@ -54,7 +54,6 @@ public class AntlrLauncher {
      * 执行where表达式
      * @param whereOqlExp where表达式
      * @param listener 监听器
-     * @return 语法解析树
      */
     public void emitWhereWalk(String whereOqlExp, ParseTreeListener listener) {
         if (StrHelper.isBlank(whereOqlExp)) {
@@ -75,7 +74,6 @@ public class AntlrLauncher {
      * 执行where表达式。
      * ps：使用默认的监听器，不会对监听内容做任何处理。
      * @param whereOqlExp where表达式
-     * @return 语法解析树
      */
     public void emitWhereWalk(String whereOqlExp) {
         this.emitWhereWalk(whereOqlExp, defaultWhereListener);
@@ -87,7 +85,6 @@ public class AntlrLauncher {
      * 执行select表达式
      * @param selectOqlExp where表达式
      * @param listener 监听器
-     * @return 语法解析树
      */
     public void emitSelectWalk(String selectOqlExp, ParseTreeListener listener) {
         if (StrHelper.isBlank(selectOqlExp)) {
@@ -108,7 +105,6 @@ public class AntlrLauncher {
      * 执行select表达式。
      * ps：使用默认的监听器，不会对监听内容做任何处理。
      * @param selectOqlExp select表达式
-     * @return 语法解析树
      */
     public void emitSelectWalk(String selectOqlExp) {
         this.emitSelectWalk(selectOqlExp, defaultSelectListener);

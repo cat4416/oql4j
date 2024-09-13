@@ -22,7 +22,7 @@ public class NegativeErrorStrategy extends DefaultErrorStrategy {
 
     /**
      * 获取实例对象
-     * @return
+     * @return 返回实例对象
      */
     public static NegativeErrorStrategy getInstance() {
         return instance;

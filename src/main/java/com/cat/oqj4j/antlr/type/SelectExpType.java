@@ -7,7 +7,7 @@ package com.cat.oqj4j.antlr.type;
 public interface SelectExpType extends ExpType {
     /**
      * 获取映射的名称
-     * @return
+     * @return 名称
      */
     public String getSelectName();
 }

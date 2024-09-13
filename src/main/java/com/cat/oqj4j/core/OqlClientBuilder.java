@@ -71,7 +71,8 @@ public class OqlClientBuilder {
 
     /**
      * 设置bean操作器
-     * @param beanHandler
+     * @param beanHandler 处理器
+     * @return 构造对象
      */
     public OqlClientBuilder setBeanHandler(BeanHandler beanHandler) {
         oqlCore.setBeanHandler(beanHandler);
@@ -81,6 +82,7 @@ public class OqlClientBuilder {
     /**
      * 注册条件处理器
      * @param handler 处理器
+     * @return 构造对象
      */
     public OqlClientBuilder registerCondHandler(CondHandler handler) {
         oqlCore.registerCondHandler(handler);
@@ -90,6 +92,7 @@ public class OqlClientBuilder {
     /**
      * 注册函数处理器
      * @param handler 处理器
+     * @return  构造对象
      */
     public OqlClientBuilder registerFunHandler(FunHandler handler) {
         oqlCore.registerFunHandler(handler);

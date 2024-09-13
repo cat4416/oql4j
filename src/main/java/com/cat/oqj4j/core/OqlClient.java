@@ -15,6 +15,7 @@ public interface OqlClient {
      * 执行Where条件 是否存在符合的记录
      * @param whereOqlExp where条件oql表达式
      * @param srcObj 提供操作的来源对象
+     * @param <T> 目标类型
      * @return true表示有符合where条件的记录，反之false。
      */
      <T> boolean doWhereExists(String whereOqlExp, T srcObj);
@@ -23,6 +24,7 @@ public interface OqlClient {
      * 执行Where条件 是否存在符合的记录
      * @param whereOqlExp where条件oql表达式
      * @param srcCol 提供操作的来源集合
+     * @param <T> 目标对象类型
      * @return true表示有符合where条件的记录，反之false。
      */
      <T> boolean doWhereExists(String whereOqlExp, Collection<T> srcCol);
@@ -31,6 +33,7 @@ public interface OqlClient {
      * 执行Where条件 统计符合的记录数
      * @param whereOqlExp where条件oql表达式
      * @param srcCol 提供操作的来源集合
+     * @param <T> 目标对象类型
      * @return 符合where条件的记录数
      */
     <T> int doWhereCount(String whereOqlExp, Collection<T> srcCol);
@@ -39,6 +42,7 @@ public interface OqlClient {
      * 执行Where条件 过滤出符合条件的记录
      * @param whereOqlExp where条件oql表达式
      * @param srcCol 提供操作的来源集合
+     * @param <T> 目标对象类型
      * @return 符合where条件的记录
      */
     <T> List<T> doWhereFilter(String whereOqlExp, Collection<T> srcCol);
@@ -48,6 +52,7 @@ public interface OqlClient {
      * @param selectOqlExp select的oql表达式
      * @param srcObj 提供操作的来源对象
      * @param targetClass 用于封装数据的目标类型
+     * @param <T> 目标对象类型
      * @return 映射结果
      */
     <T> T doSelect(String selectOqlExp, Object srcObj, Class<T> targetClass);
@@ -56,6 +61,7 @@ public interface OqlClient {
      * @param selectOqlExp select的oql表达式
      * @param srcCol 提供操作的来源集合
      * @param targetClass 用于封装数据的目标类型
+     * @param <T> 目标类型
      * @return 映射结果
      */
     <T> List<T> doSelect(String selectOqlExp, Collection<?> srcCol, Class<T> targetClass);
@@ -66,6 +72,7 @@ public interface OqlClient {
      * @param whereOqlExp where条件oql表达式。可为空。
      * @param srcCol 提供操作的来源集合
      * @param targetClass 用于封装数据的目标类型
+     * @param <T> 目标对象类型
      * @return 映射结果
      */
     <T> List<T> doSelect(String selectOqlExp, String whereOqlExp,

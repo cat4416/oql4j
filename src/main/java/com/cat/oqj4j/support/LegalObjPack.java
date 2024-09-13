@@ -21,7 +21,7 @@ public class LegalObjPack {
 
     /**
      * 是否全部符合
-     * @return
+     * @return true表示全部符合
      */
     public boolean isAllSatisfied() {
         return isAllSatisfied;
@@ -61,7 +61,7 @@ public class LegalObjPack {
 
     /**
      * 是否合法对象
-     * @param obj
+     * @param obj 判断对象
      * @return true表示合法对象
      */
     public boolean isIegalObj(Object obj) {
@@ -71,7 +71,7 @@ public class LegalObjPack {
 
     /**
      * 增加合法对象
-     * @param obj
+     * @param obj 判断对象
      */
     public void addIllegalObj(Object obj) {
         if (!isAllSatisfied) {

@@ -1,4 +1,4 @@
-// 用于解析select查询映射的表达式语法
+// 用于解析select映射查询的表达式语法
 grammar SelectStatement;
 // 引入基本语法
 import BaseStatement;
@@ -14,7 +14,7 @@ stat
      ;
 
 select
-     : baseType             #DirectSelect
+     : baseType            #DirectSelect
      | baseType idNest     #AliasSelect
      | baseType AS idNest  #AsAliasSelect
      ;

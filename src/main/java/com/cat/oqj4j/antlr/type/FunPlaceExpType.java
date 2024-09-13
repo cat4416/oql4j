@@ -28,7 +28,7 @@ public class FunPlaceExpType implements ExpType{
 
     /**
      * 获取参数数量
-     * @return
+     * @return 返回参数数量
      */
     public int getArgQuantity() {
         return argQuantity;
@@ -36,7 +36,7 @@ public class FunPlaceExpType implements ExpType{
 
     /**
      * 设置参数数量
-     * @param argQuantity
+     * @param argQuantity 返回参数数量
      */
     public void setArgQuantity(int argQuantity) {
         this.argQuantity = argQuantity;

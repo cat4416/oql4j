@@ -32,7 +32,7 @@ public abstract class StrHelper {
     /**
      * 头部和尾部个修剪掉1个字符串.
      * ps：如果str参数为null或者长度小于2，则直接返回原字符串。
-     * @param str
+     * @param str 字符串参数
      * @return 去除后的字符串
      */
     public static String trimOneCharHeadAndTail(String str) {
@@ -66,7 +66,7 @@ public abstract class StrHelper {
     /**
      * 是否空字符串。null、""、"   "都属于空字符串。
      * @param str 字符串
-     * @return
+     * @return true表示为空
      */
     public static boolean isBlank(String str) {
         return str == null || str.trim().length() == 0;
@@ -75,7 +75,8 @@ public abstract class StrHelper {
     /**
      * 是否为非空字符串。null、""、"   "都属于空字符串。
      * @param str 字符串
-     * @return
+     * @return true表示不为空字符串。
+     * @return true表示不为空
      */
     public static boolean isNotBlank(String str) {
         return !isBlank(str);

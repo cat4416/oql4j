@@ -26,7 +26,7 @@ public class IdentityHashSet<E> extends AbstractSet<E> implements Set<E>, Clonea
 
     /**
      * 构造对象，并传入需要包含的集合
-     * @param c
+     * @param c 初始集合元素
      */
     public IdentityHashSet(Collection<? extends E> c) {
         map = new IdentityHashMap<>(Math.max((int) (c.size()/.75f) + 1, 16));

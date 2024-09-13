@@ -50,6 +50,7 @@ public class SelectStatementListener extends SelectStatementBaseListener {
 
     /**
      * 构造对象
+     * @param coreProfile 核心剖面
      * @param srcCol 原对象
      */
     public SelectStatementListener(OqlCoreProfile coreProfile, Collection<?> srcCol) {
@@ -157,6 +158,7 @@ public class SelectStatementListener extends SelectStatementBaseListener {
     /**
      * 获取结果值
      * @param targetClass 用于封装数据的目标类型
+     * @param <T> 目标类型
      * @return 映射结果
      * @throws InstantiationException 目标类型实例化失败时抛出此异常
      * @throws BeanHandlingException 目标类型赋值失败时抛出此异常

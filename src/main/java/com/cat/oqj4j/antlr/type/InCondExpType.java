@@ -22,7 +22,7 @@ public class InCondExpType implements CondExpType {
 
     /**
      * 获取参数数量
-     * @return
+     * @return 返回参数数量
      */
     public int getParamQuantity() {
         return paramQuantity;
@@ -30,7 +30,7 @@ public class InCondExpType implements CondExpType {
 
     /**
      * 设置参数数量
-     * @param paramQuantity
+     * @param paramQuantity 返回参数数量
      */
     public void setParamQuantity(int paramQuantity) {
         this.paramQuantity = paramQuantity;

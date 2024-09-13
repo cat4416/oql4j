@@ -13,6 +13,7 @@ import java.util.*;
  *
  * @author gwj
  */
+@SuppressWarnings("unchecked")
 public class OqlClientlWhereTest {
     private OqlClient oqlClient;
 

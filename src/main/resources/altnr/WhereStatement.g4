@@ -1,4 +1,4 @@
-// 用于解析where条件的表达式语法
+// 用于解析where条件过滤的表达式语法
 grammar WhereStatement;
 // 引入基本语法
 import BaseStatement;

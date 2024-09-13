@@ -3,36 +3,15 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.cat.oqj4j</groupId>
+	<groupId>io.github.cat4416</groupId>
 	<artifactId>oql4j</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0</version>
-	<description></description>
+	<version>2.0</version>
 
-	<licenses>
-		<license>
-			<name>The Apache Software License, Version 2.0</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-					<testExcludes>
-						<testExclude>/src/test/**</testExclude>
-					</testExcludes>
-					<encoding>utf-8</encoding>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+	<description>oql4j 全称 Object Query Language For Java，即java版本的对象查询语言，支持使用编写查询语言快速的搜索和处理符合条件的对象。</description>
+	<name>${project.artifactId}</name>
+	<url>https://github.com/cat4416/oql4j</url>
+
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -62,5 +41,120 @@
 			<version>${commons.beanutils.version}</version>
 		</dependency>
 	</dependencies>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>cat4416</id>
+			<name>cat4416</name>
+			<email>565335545@qq.com</email>
+			<roles>
+				<role>Project Manager</role>
+				<role>Architect</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>https://github.com/cat4416/oql4j.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com:cat4416/oql4j.git</developerConnection>
+		<url>https://github.com/cat4416/oql4j</url>
+	</scm>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>oss</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+		</snapshotRepository>
+		<repository>
+			<id>oss</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
+
+	<build>
+		<plugins>
+			<!--编译插件-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<testExcludes>
+						<testExclude>/src/test/**</testExclude>
+					</testExcludes>
+					<encoding>utf-8</encoding>
+				</configuration>
+			</plugin>
+			<!--   central发布插件    -->
+			<plugin>
+				<groupId>org.sonatype.central</groupId>
+				<artifactId>central-publishing-maven-plugin</artifactId>
+				<version>0.4.0</version>
+				<extensions>true</extensions>
+				<configuration>
+					<publishingServerId>oss</publishingServerId>
+					<tokenAuth>true</tokenAuth>
+				</configuration>
+			</plugin>
+			<!--source源码插件-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.2.1</version>
+				<executions>
+					<execution>
+						<id>oss</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!--javadoc插件-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9.1</version>
+				<executions>
+					<execution>
+						<id>oss</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!--gpg验证插件-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.5</version>
+				<configuration>
+					<!--指定gpg安装目录-->
+					<executable>C:\Program Files (x86)\GnuPG\bin\gpg.exe</executable>
+					<keyname>cat4416</keyname>
+				</configuration>
+				<executions>
+					<execution>
+						<id>oss</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>

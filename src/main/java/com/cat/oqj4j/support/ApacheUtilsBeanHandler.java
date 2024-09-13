@@ -12,6 +12,7 @@ import java.util.*;
  *
  * @author gwj
  */
+@SuppressWarnings("unchecked")
 public class ApacheUtilsBeanHandler implements BeanHandler {
 
     @Override
@@ -116,16 +117,6 @@ public class ApacheUtilsBeanHandler implements BeanHandler {
         } catch(Exception e) {
             throw new BeanHandlingException("设置" + fieldName +"字段值异常", e);
         }
-    }
-
-    public static void main(String[] args) {
-        System.out.println("int.class.isPrimitive()=" + int.class.isPrimitive());
-        System.out.println("Integer.class.isPrimitive()=" + Integer.class.isPrimitive());
-        System.out.println("String.class.isPrimitive()=" + String.class.isPrimitive());
-
-        Integer i = 3;
-        System.out.println(i.getClass());
-        System.out.println(i.getClass().isPrimitive());
     }
 
     @Override

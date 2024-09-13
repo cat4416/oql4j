@@ -34,7 +34,7 @@ public class OqlCoreProfile {
 
     /**
      * 获取bean操作器
-     * @return
+     * @return 构造对象
      */
     public BeanHandler getBeanHandler() {
         return beanHandler;

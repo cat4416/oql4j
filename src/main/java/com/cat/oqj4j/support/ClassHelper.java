@@ -10,6 +10,7 @@ public abstract class ClassHelper {
     /**
      * 创建新的实例
      * @param clazz 字节码
+     * @param <T> 目标类型
      * @return 实例化对象
      * @throws InstantiationException 实例化失败将抛出此异常
      */

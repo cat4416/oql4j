@@ -13,8 +13,8 @@ import com.cat.oqj4j.exception.OqlExpResolvedException;
 public abstract class AntlrHelper {
     /**
      * 是否值表达式类型
-     * @param expType
-     * @return
+     * @param expType 表达式类型
+     * @return true表示属于值表达式类型
      */
     public static boolean isValExpType(ExpType expType) {
         return expType instanceof ValExpType;

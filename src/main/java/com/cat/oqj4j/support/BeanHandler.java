@@ -16,8 +16,9 @@ public interface BeanHandler {
      *    如果sample对象为null，则直接返回null。
      * @param bean 操作对象
      * @param fieldName 字段名称
+     * @param <T> 目标类型
      * @return 字段值
-     * @throws BeanHandlingException
+     * @throws BeanHandlingException bean处理异常
      */
     <T> T getFieldVal(Object bean, String fieldName) throws BeanHandlingException;
 
@@ -28,7 +29,7 @@ public interface BeanHandler {
      * @param bean 操作对象
      * @param fieldName 字段名称
      * @param val 字段值
-     * @throws BeanHandlingException
+     * @throws BeanHandlingException bean处理异常
      */
     void setFieldVal(Object bean, String fieldName, Object val) throws BeanHandlingException;
 
@@ -36,7 +37,7 @@ public interface BeanHandler {
      * bean拷贝
      * @param dest 目的对象。即设置拷贝值的对象。
      * @param orig 来源对象。即取值来源。
-     * @throws BeanHandlingException
+     * @throws BeanHandlingException bean处理异常
      */
     void copyBean(Object dest, Object orig) throws BeanHandlingException;
 }

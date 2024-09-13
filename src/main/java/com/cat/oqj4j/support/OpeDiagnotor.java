@@ -22,7 +22,7 @@ public class OpeDiagnotor {
 
     /**
      * 获取实例对象
-     * @return
+     * @return 实例对象
      */
     public static OpeDiagnotor getInstance() {
         return opeDiagnotor;
@@ -70,7 +70,7 @@ public class OpeDiagnotor {
     }
 
     /**
-     * 诊断 =等于操作符
+     * 诊断 等于操作符
      * @param obj1 比较对象1
      * @param obj2 比较对象2
      * @return 诊断结果
@@ -140,7 +140,7 @@ public class OpeDiagnotor {
     }
 
     /**
-     * 诊断 >大于操作符，即要求obj1大于obj2
+     * 诊断 大于操作符，即要求obj1大于obj2
      * @param obj1 比较对象1
      * @param obj2 比较对象2
      * @return 诊断结果
@@ -198,7 +198,7 @@ public class OpeDiagnotor {
     }
 
     /**
-     * 诊断 <小于操作符，即要求obj1小于obj2
+     * 诊断 小于操作符，即要求obj1小于obj2
      * @param obj1 比较对象1
      * @param obj2 比较对象2
      * @return 诊断结果
@@ -254,7 +254,7 @@ public class OpeDiagnotor {
     }
 
     /**
-     * 诊断 >=大于等于操作符
+     * 诊断 大于等于 操作符
      * @param obj1 比较对象1
      * @param obj2 比较对象2
      * @return 诊断结果
@@ -265,7 +265,7 @@ public class OpeDiagnotor {
 
 
     /**
-     * 诊断 <=小于操作符
+     * 诊断 小于 操作符
      * @param obj1 比较对象1
      * @param obj2 比较对象2
      * @return 诊断结果
@@ -275,7 +275,7 @@ public class OpeDiagnotor {
     }
 
     /**
-     * 诊断 不等于操作（包含!=和<>）
+     * 诊断 不等于 操作
      * @param obj1 比较对象1
      * @param obj2 比较对象2
      * @return 诊断结果
