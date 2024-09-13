@@ -1,8 +1,5 @@
 package com.cat.oqj4j.support;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /** 我的个人信息bean测试类
  * @author gwj
  */

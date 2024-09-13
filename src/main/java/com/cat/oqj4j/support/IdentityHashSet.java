@@ -11,7 +11,7 @@ import java.util.*;
  * @author gwj
  */
 public class IdentityHashSet<E> extends AbstractSet<E> implements Set<E>, Cloneable {
-    private transient IdentityHashMap<E,Object> map;
+    private transient IdentityHashMap<E, Object> map;
 
     // 伪造Map的Value值
     private static final Object PRESENT = new Object();

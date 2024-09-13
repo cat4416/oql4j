@@ -1,6 +1,9 @@
 package com.cat.oqj4j.antlr.handler;
 
-import com.cat.oqj4j.antlr.type.*;
+import com.cat.oqj4j.antlr.type.ConstValExpType;
+import com.cat.oqj4j.antlr.type.DynamicValExpType;
+import com.cat.oqj4j.antlr.type.ExpType;
+import com.cat.oqj4j.antlr.type.ValCondExpType;
 import com.cat.oqj4j.exception.OqlExpResolvedException;
 import com.cat.oqj4j.support.LegalObjPack;
 import com.cat.oqj4j.support.OpeDiagnotor;

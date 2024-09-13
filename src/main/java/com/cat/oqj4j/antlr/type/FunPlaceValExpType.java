@@ -2,8 +2,8 @@ package com.cat.oqj4j.antlr.type;
 
 import com.cat.oqj4j.antlr.handler.FunHandler;
 import com.cat.oqj4j.core.OqlCoreProfile;
-import com.cat.oqj4j.exception.OqlExpResolvedException;
 import com.cat.oqj4j.support.AntlrHelper;
+import com.cat.oqj4j.exception.OqlExpResolvedException;
 
 import java.util.ArrayList;
 import java.util.Collection;

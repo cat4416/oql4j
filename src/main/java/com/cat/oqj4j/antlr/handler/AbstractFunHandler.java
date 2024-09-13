@@ -1,6 +1,5 @@
 package com.cat.oqj4j.antlr.handler;
 
-import com.cat.oqj4j.annotation.ThreadSafe;
 import com.cat.oqj4j.exception.OqlExpResolvedException;
 import com.cat.oqj4j.support.StrHelper;
 

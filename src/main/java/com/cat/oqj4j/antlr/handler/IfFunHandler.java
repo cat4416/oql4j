@@ -1,7 +1,7 @@
 package com.cat.oqj4j.antlr.handler;
 
-import com.cat.oqj4j.exception.OqlExpResolvedException;
 import com.cat.oqj4j.support.OpeDiagnotor;
+import com.cat.oqj4j.exception.OqlExpResolvedException;
 
 import java.util.Collection;
 

@@ -2,7 +2,7 @@ package com.cat.oqj4j.antlr.listener;
 
 import com.cat.oqj4j.antlr.gen.WhereStatementBaseListener;
 import com.cat.oqj4j.antlr.gen.WhereStatementParser;
-import com.cat.oqj4j.antlr.handler.*;
+import com.cat.oqj4j.antlr.handler.CondHandler;
 import com.cat.oqj4j.antlr.type.*;
 import com.cat.oqj4j.core.OqlCoreProfile;
 import com.cat.oqj4j.exception.OqlExpResolvedException;

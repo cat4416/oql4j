@@ -1,10 +1,13 @@
 package com.cat.oqj4j.antlr.handler;
 
-import com.cat.oqj4j.antlr.type.*;
-import com.cat.oqj4j.exception.OqlExpResolvedException;
+import com.cat.oqj4j.antlr.type.BinaryCondExpType;
+import com.cat.oqj4j.antlr.type.ConstValExpType;
+import com.cat.oqj4j.antlr.type.DynamicValExpType;
+import com.cat.oqj4j.antlr.type.ExpType;
 import com.cat.oqj4j.support.AntlrHelper;
-import com.cat.oqj4j.support.LegalObjPack;
 import com.cat.oqj4j.support.OpeDiagnotor;
+import com.cat.oqj4j.exception.OqlExpResolvedException;
+import com.cat.oqj4j.support.LegalObjPack;
 import com.cat.oqj4j.support.OperatorEnum;
 
 import java.util.Collection;

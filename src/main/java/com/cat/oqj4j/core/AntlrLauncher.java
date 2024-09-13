@@ -1,10 +1,10 @@
 package com.cat.oqj4j.core;
 
+import com.cat.oqj4j.antlr.ext.ThrowErrorListener;
 import com.cat.oqj4j.annotation.ThreadSafe;
 import com.cat.oqj4j.antlr.ext.MySelectStatementLexer;
 import com.cat.oqj4j.antlr.ext.MyWhereStatementLexer;
 import com.cat.oqj4j.antlr.ext.NegativeErrorStrategy;
-import com.cat.oqj4j.antlr.ext.ThrowErrorListener;
 import com.cat.oqj4j.antlr.gen.SelectStatementBaseListener;
 import com.cat.oqj4j.antlr.gen.SelectStatementParser;
 import com.cat.oqj4j.antlr.gen.WhereStatementBaseListener;

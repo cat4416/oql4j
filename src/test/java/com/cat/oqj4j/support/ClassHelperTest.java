@@ -2,7 +2,6 @@ package com.cat.oqj4j.support;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.internal.runners.statements.Fail;
 
 import java.io.Closeable;
 import java.math.BigDecimal;

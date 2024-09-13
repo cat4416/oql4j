@@ -66,6 +66,7 @@ public abstract class AbstractCondHandler<T extends CondExpType> implements Cond
 
 
     @Override
+    @SuppressWarnings(("unchecked"))
     public Class<T> getSupportedExpType() {
         final ParameterizedType pt = (ParameterizedType) this.getClass().getGenericSuperclass();
         return (Class<T>) pt.getActualTypeArguments()[0];
