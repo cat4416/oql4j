@@ -252,12 +252,21 @@ boolean result = GrammarCheckHelper.verifySelectExp(selectOqlExp);
 
 
 # 附加
+## 源码管理
 源码将发布在github上进行管理，同时在gittee进行放开查看。
 - github地址（支持编辑）: https://github.com/cat4416/oql4j
-- gitee地址（仅能查看）：https://gitee.com/cat4416/oql4j
+- gitee地址（用于查看）：https://gitee.com/cat4416/oql4j
 
-<br/>
+## maven仓库中心GAV坐标
+```
+<dependency>
+    <groupId>io.github.cat4416</groupId>
+    <artifactId>oql4j</artifactId>
+    <version>2.1</version>
+</dependency>
+```
+- 仓库中心版本号与源码版本同步，从2.1版本开始，都将支持在maven仓库中心下载依赖包。
 
-作者联系方式：
+## 作者联系方式：
 - 微信号(wechat)：cat4416
 - 邮箱：565335545@qq.com
