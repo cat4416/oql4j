@@ -19,18 +19,6 @@ import java.util.*;
  */
 public class SelectStatementListener extends SelectStatementBaseListener {
     /**
-     * 逗号分隔符
-     */
-    private final static String COMMA_SEPARATOR = ",";
-    /**
-     * 左括号标识符
-     */
-    private final static String LEFT_PARENTHESIS = "(";
-    /**
-     * 右括号标识符
-     */
-    private final static String RIGHT_PARENTHESIS = ")";
-    /**
      * oql核心剖面
      */
     private final OqlCoreProfile coreProfile;
@@ -133,25 +121,7 @@ public class SelectStatementListener extends SelectStatementBaseListener {
 
     @Override
     public void exitFunPlace(SelectStatementParser.FunPlaceContext ctx) {
-        FunPlaceExpType funPlaceExpType = new FunPlaceExpType(ctx.getText());
-        // 统计参数数量，根据逗号分隔符来统计。
-        int argQuantity = 0;
-        // 函数表达式格式：F{name}、F{name()}、F{name(arg1,arg2,arg3...)}
-        int loopCount = 0;
-        for (ParseTree child : ctx.children) {
-            if (LEFT_PARENTHESIS.equals(child.getText())) {
-                // 当出现左括号(后，下一个子节点不是右括号)，则说明不是空的()括号，肯定存在有参数，初始数量为1。
-                if (!RIGHT_PARENTHESIS.equals(ctx.getChild(loopCount + 1).getText())) {
-                    argQuantity = 1;
-                }
-            } else if (COMMA_SEPARATOR.equals(child.getText())) {
-                // 每出现一个逗号分隔符，则参数数量+1
-                argQuantity++;
-            }
-            loopCount++;
-        }
-        funPlaceExpType.setArgQuantity(argQuantity);
-
+        FunPlaceExpType funPlaceExpType = AntlrHelper.generateFunPlaceExpType(ctx);
         nodeStack.push(funPlaceExpType);
     }
 

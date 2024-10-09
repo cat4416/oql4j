@@ -1,5 +1,5 @@
-// 用于解析select映射查询的表达式语法
-grammar SelectStatement;
+// 用于解析update更新数据的表达式语法
+grammar UpdateStatement;
 // 引入基本语法
 import BaseStatement;
 
@@ -10,14 +10,15 @@ parse
 
 // 定义声明语法
 stat
-     : select (',' select)*
+     : update (',' update)*
      ;
 
-// select语法
-select
-     : baseType            #DirectSelect
-     | baseType idNest     #AliasSelect
-     | baseType AS idNest  #AsAliasSelect
+// update语法
+update
+     : updateField EQ baseType #baseAssign
      ;
+
+// 更新字段
+updateField: fieldPlace;
 
 WS  : [ \t\r\n]+ -> skip;  // 跳过空格、制表符、回车符和换行符

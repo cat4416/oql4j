@@ -7,7 +7,7 @@ import java.math.BigDecimal;
  *
  * @author gwj
  */
-public class NumberValExpType implements ConstValExpType<BigDecimal> {
+public class NumberValExpType implements ConstValExpType<Number> {
     private String exp;
 
     public NumberValExpType(String exp) {
@@ -20,7 +20,20 @@ public class NumberValExpType implements ConstValExpType<BigDecimal> {
     }
 
     @Override
-    public BigDecimal getVal() {
-        return new BigDecimal(exp);
+    public Number getVal() {
+        /**
+         * 优先级如下：
+         * 1、如果只有整数，优先考虑使用Integer，当长度超过10位数时，则用Long
+         * 2、如果存在小数或者科学计数法，则统一使用BigDecimal类型。
+         */
+        Number val = null;
+        if (exp.contains(".") || exp.contains("e") || exp.contains("E")) {
+            val = new BigDecimal(exp);
+        } else if (exp.length() > 10) {
+            val = new Long(exp);
+        } else {
+            val = new Integer(exp);
+        }
+        return val;
     }
 }

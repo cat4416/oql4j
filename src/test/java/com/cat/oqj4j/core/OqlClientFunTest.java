@@ -6,9 +6,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.math.BigDecimal;
+import java.util.*;
 
 /**
  * Oql客户端的函数 测试
@@ -363,6 +362,72 @@ public class OqlClientFunTest {
         result = oqlClient.doWhereExists(whereOqlExp, p01);
         TestHelper.printResult("{} 输出结果为：{} ", whereOqlExp, result);
         Assert.assertTrue(result);
+    }
+
+    /**
+     * 测试 Incr 函数
+     * @throws Exception
+     */
+    @Test
+    public void testIncr() throws Exception {
+        Map<String, Object> map = new HashMap<>();
+        map.put("age", 33);
+        map.put("property", 100000L);
+        map.put("weight", "57.66");
+
+        String selectOqlExp = " F{Incr(${age})} AS ageIncr, F{Incr(${property})} AS propertyIncr, F{Incr(${weight})} AS weightIncr ";
+
+        Map<String, Object> result = oqlClient.doSelect(selectOqlExp, map);
+        TestHelper.printResult("{} 输出结果为：{} ", selectOqlExp, result);
+        Assert.assertTrue(result.get("ageIncr") instanceof Integer);
+        Assert.assertTrue(result.get("ageIncr").equals(34));
+        Assert.assertTrue(result.get("propertyIncr") instanceof Long);
+        Assert.assertTrue(result.get("propertyIncr").equals(100001L));
+        Assert.assertTrue(result.get("weightIncr") instanceof BigDecimal);
+        Assert.assertTrue(((BigDecimal) result.get("weightIncr")).compareTo(new BigDecimal("58.66")) == 0);
+
+        selectOqlExp = "F{Incr(${age}, 10)}  AS ageIncrN, F{Incr(${property}, 10000)}  AS propertyIncrN, F{Incr(${weight}, 20.36)}  AS weightIncrN";
+        result = oqlClient.doSelect(selectOqlExp, map);
+        TestHelper.printResult("{} 输出结果为：{} ", selectOqlExp, result);
+        Assert.assertTrue(result.get("ageIncrN") instanceof Integer);
+        Assert.assertTrue(result.get("ageIncrN").equals(43));
+        Assert.assertTrue(result.get("propertyIncrN") instanceof Long);
+        Assert.assertTrue(result.get("propertyIncrN").equals(110000L));
+        Assert.assertTrue(result.get("weightIncrN") instanceof BigDecimal);
+        Assert.assertTrue(((BigDecimal) result.get("weightIncrN")).compareTo(new BigDecimal("78.02")) == 0);
+    }
+
+    /**
+     * 测试 Dncr 函数
+     * @throws Exception
+     */
+    @Test
+    public void testDncr() throws Exception {
+        Map<String, Object> map = new HashMap<>();
+        map.put("age", 33);
+        map.put("property", 100000L);
+        map.put("weight", "57.66");
+
+        String selectOqlExp = " F{Dncr(${age})} AS ageDncr, F{Dncr(${property})} AS propertyDncr, F{Dncr(${weight})} AS weightDncr ";
+
+        Map<String, Object> result = oqlClient.doSelect(selectOqlExp, map);
+        TestHelper.printResult("{} 输出结果为：{} ", selectOqlExp, result);
+        Assert.assertTrue(result.get("ageDncr") instanceof Integer);
+        Assert.assertTrue(result.get("ageDncr").equals(32));
+        Assert.assertTrue(result.get("propertyDncr") instanceof Long);
+        Assert.assertTrue(result.get("propertyDncr").equals(99999L));
+        Assert.assertTrue(result.get("weightDncr") instanceof BigDecimal);
+        Assert.assertTrue(((BigDecimal) result.get("weightDncr")).compareTo(new BigDecimal("56.66")) == 0);
+
+        selectOqlExp = "F{Dncr(${age}, 10)}  AS ageDncrN, F{Dncr(${property}, 10000)}  AS propertyDncrN, F{Dncr(${weight}, 20.36)}  AS weightDncrN";
+        result = oqlClient.doSelect(selectOqlExp, map);
+        TestHelper.printResult("{} 输出结果为：{} ", selectOqlExp, result);
+        Assert.assertTrue(result.get("ageDncrN") instanceof Integer);
+        Assert.assertTrue(result.get("ageDncrN").equals(23));
+        Assert.assertTrue(result.get("propertyDncrN") instanceof Long);
+        Assert.assertTrue(result.get("propertyDncrN").equals(90000L));
+        Assert.assertTrue(result.get("weightDncrN") instanceof BigDecimal);
+        Assert.assertTrue(((BigDecimal) result.get("weightDncrN")).compareTo(new BigDecimal("37.3")) == 0);
     }
 
 }

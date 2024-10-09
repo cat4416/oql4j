@@ -67,6 +67,10 @@ public class OqlClientBuilder {
         oqlCore.registerFunHandler(new ClassSimpleNameFunHandler());
         // NotExistNull函数处理器
         oqlCore.registerFunHandler(new NotExistNullFunHandler());
+        // Incr函数处理器
+        oqlCore.registerFunHandler(new IncrFunHandler());
+        // Dncr函数处理器
+        oqlCore.registerFunHandler(new DncrFunHandler());
     }
 
     /**

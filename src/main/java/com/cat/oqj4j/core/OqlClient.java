@@ -95,4 +95,28 @@ public interface OqlClient {
      * @return 映射结果
      */
     Map<String, Object> doSelect(String selectOqlExp, Object srcObj);
+
+    /**
+     * 执行Update更新
+     * @param updateOqlExp update的oql表达式
+     * @param srcObj 提供操作的来源对象
+     * @return 更新的记录数
+     */
+    int doUpdate(String updateOqlExp, Object srcObj);
+
+    /**
+     * 执行Update更新
+     * @param updateOqlExp update的oql表达式
+     * @param srcCol 提供操作的来源集合
+     * @return 更新的记录数
+     */
+    int doUpdate(String updateOqlExp, Collection<?> srcCol);
+    /**
+     * 执行Update更新
+     * @param updateOqlExp update的oql表达式。不可为空。
+     * @param whereOqlExp where条件oql表达式。可为空。
+     * @param srcCol 提供操作的来源集合
+     * @return 更新的记录数
+     */
+    int doUpdate(String updateOqlExp, String whereOqlExp, Collection<?> srcCol);
 }

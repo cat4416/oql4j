@@ -1,14 +1,8 @@
 package com.cat.oqj4j.core;
 
-import com.cat.oqj4j.antlr.ext.ThrowErrorListener;
+import com.cat.oqj4j.antlr.ext.*;
 import com.cat.oqj4j.annotation.ThreadSafe;
-import com.cat.oqj4j.antlr.ext.MySelectStatementLexer;
-import com.cat.oqj4j.antlr.ext.MyWhereStatementLexer;
-import com.cat.oqj4j.antlr.ext.NegativeErrorStrategy;
-import com.cat.oqj4j.antlr.gen.SelectStatementBaseListener;
-import com.cat.oqj4j.antlr.gen.SelectStatementParser;
-import com.cat.oqj4j.antlr.gen.WhereStatementBaseListener;
-import com.cat.oqj4j.antlr.gen.WhereStatementParser;
+import com.cat.oqj4j.antlr.gen.*;
 import com.cat.oqj4j.support.StrHelper;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -35,6 +29,10 @@ public class AntlrLauncher {
      * select表达式 默认监听器
      */
     private static final SelectStatementBaseListener defaultSelectListener = new SelectStatementBaseListener();
+    /**
+     * update表达式 默认监听器
+     */
+    private static final UpdateStatementBaseListener defaultUpdateListener = new UpdateStatementBaseListener();
 
     /**
      * 限制对象的创建
@@ -83,7 +81,7 @@ public class AntlrLauncher {
 
     /**
      * 执行select表达式
-     * @param selectOqlExp where表达式
+     * @param selectOqlExp select表达式
      * @param listener 监听器
      */
     public void emitSelectWalk(String selectOqlExp, ParseTreeListener listener) {
@@ -108,6 +106,36 @@ public class AntlrLauncher {
      */
     public void emitSelectWalk(String selectOqlExp) {
         this.emitSelectWalk(selectOqlExp, defaultSelectListener);
+    }
+
+
+    /**
+     * 执行update表达式
+     * @param updateOqlExp update表达式
+     * @param listener 监听器
+     */
+    public void emitUpdateWalk(String updateOqlExp, ParseTreeListener listener) {
+        if (StrHelper.isBlank(updateOqlExp)) {
+            throw new IllegalArgumentException("oql表达式不能为空");
+        }
+        TokenSource lexer = new MyUpdateStatementLexer(CharStreams.fromString(updateOqlExp));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        UpdateStatementParser parser = new UpdateStatementParser(tokens);
+        // 删除默认错误监听器并使用指定的监听器
+        parser.removeErrorListeners();
+        parser.addErrorListener(ThrowErrorListener.getInstance());
+        // 指定异常处理策略
+        parser.setErrorHandler(NegativeErrorStrategy.getInstance());
+        ParseTreeWalker.DEFAULT.walk(listener, parser.parse());
+    }
+
+    /**
+     * 执行updatet表达式。
+     * ps：使用默认的监听器，不会对监听内容做任何处理。
+     * @param updateOqlExp update表达式
+     */
+    public void emitUpdateWalk(String updateOqlExp) {
+        this.emitUpdateWalk(updateOqlExp, defaultUpdateListener);
     }
 
 

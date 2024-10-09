@@ -1,6 +1,7 @@
 package com.cat.oqj4j.core;
 
 import com.cat.oqj4j.antlr.listener.SelectStatementListener;
+import com.cat.oqj4j.antlr.listener.UpdateStatementListener;
 import com.cat.oqj4j.support.StrHelper;
 import com.cat.oqj4j.annotation.ThreadSafe;
 import com.cat.oqj4j.antlr.listener.WhereStatementListener;
@@ -83,6 +84,7 @@ public class DefaultOqlClientImpl implements OqlClient {
             // 先执行where表达式，获得符合条件的数据
             useSrcCol = this.doWhereFilter(whereOqlExp, useSrcCol);
         }
+        // 执行select映射
         SelectStatementListener selectStatementListener = execSelectExp(selectOqlExp, useSrcCol);
         try {
             return selectStatementListener.getResult(targetClass);
@@ -99,6 +101,7 @@ public class DefaultOqlClientImpl implements OqlClient {
             // 先执行where表达式，获得符合条件的数据
             useSrcCol = this.doWhereFilter(whereOqlExp, useSrcCol);
         }
+        // 执行select映射
         SelectStatementListener selectStatementListener = execSelectExp(selectOqlExp, useSrcCol);
         return selectStatementListener.getMapResult();
     }
@@ -110,6 +113,31 @@ public class DefaultOqlClientImpl implements OqlClient {
         }
         List<Map<String, Object>> maps = this.doSelect(selectOqlExp, null, Arrays.asList(srcObj));
         return maps.get(0);
+    }
+
+    @Override
+    public int doUpdate(String updateOqlExp, Object srcObj) {
+        if (srcObj == null) {
+            throw new IllegalArgumentException("操作对象不能为空");
+        }
+        return this.doUpdate(updateOqlExp, Arrays.asList(srcObj));
+    }
+
+    @Override
+    public int doUpdate(String updateOqlExp, Collection<?> srcCol) {
+        return this.doUpdate(updateOqlExp, null, srcCol);
+    }
+
+    @Override
+    public int doUpdate(String updateOqlExp, String whereOqlExp, Collection<?> srcCol) {
+        Collection<?> useSrcCol = srcCol;
+        // 判断where条件表达式是否存在
+        if (StrHelper.isNotBlank(whereOqlExp)) {
+            // 先执行where表达式，获得符合条件的数据
+            useSrcCol = this.doWhereFilter(whereOqlExp, useSrcCol);
+        }
+        // 执行update更新
+        return this.execUpdateExp(updateOqlExp, useSrcCol).getUpdateRecord();
     }
 
     /**
@@ -135,6 +163,19 @@ public class DefaultOqlClientImpl implements OqlClient {
         // 执行语法遍历
         SelectStatementListener listener = new SelectStatementListener(this.coreProfile, srcCol);
         antlrLauncher.emitSelectWalk(selectOqlExp, listener);
+        return listener;
+    }
+
+    /**
+     * 执行update更新表达式
+     * @param updateOqlExp update的oql表达式
+     * @param srcCol 提供操作的来源集合
+     * @return update更新监听器
+     */
+    private UpdateStatementListener execUpdateExp(String updateOqlExp, Collection<?> srcCol) {
+        // 执行语法遍历
+        UpdateStatementListener listener = new UpdateStatementListener(this.coreProfile, srcCol);
+        antlrLauncher.emitUpdateWalk(updateOqlExp, listener);
         return listener;
     }
 

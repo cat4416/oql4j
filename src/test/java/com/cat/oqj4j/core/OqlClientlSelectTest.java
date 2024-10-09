@@ -55,7 +55,8 @@ public class OqlClientlSelectTest {
         p01.setName("张三");
         p01.setIsMan(true);
         p01.setAge(36);
-        String selectOqlExp = " ${age} myAge, ${isMan} as knownGender, ${name} as myName, ${addr.province} as  myAddr.province,  ${addr.city} myAddr.city";
+        // 测试场景：1、类型不同；2、设置别名；3、嵌套属性设置
+        String selectOqlExp = " F{CastStr(${age})} myAge, ${isMan} as knownGender, ${name} as myName, ${addr.province} as  myAddr.province,  ${addr.city} myAddr.city";
         MyPersonTest result = oqlClient.doSelect(selectOqlExp, p01, MyPersonTest.class);
         TestHelper.printResult( "{} 输出结果为: {}", selectOqlExp, result);
         Assert.assertTrue(result.getMyAge().equals(36));
@@ -252,19 +253,6 @@ public class OqlClientlSelectTest {
         } catch(Exception e) {
             TestHelper.printResult("select映射操作原对象集合的元素存在null，抛出期望的异常({})，测试通过 ", e);
         }
-
-        // 测试映射的字段类型不同
-        try {
-            String selectOqlExp = " ${name}, F{CastStr(${age})} as age";
-            PersonTest personTest = new PersonTest();
-            personTest.setName("李白百");
-            personTest.setAge(55);
-            PersonTest result = oqlClient.doSelect(selectOqlExp, personTest, PersonTest.class);
-            Assert.fail("select映射操作字段类型不同，没有抛出期望的异常，且执行结果为：" + result);
-        } catch(Exception e) {
-            TestHelper.printResult("select映射操作字段类型不同，抛出期望的异常({})，测试通过 ", e);
-        }
-
 
         // 测试映射的字段不存在
         try {

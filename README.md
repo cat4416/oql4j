@@ -1,7 +1,7 @@
 # 一、简介
 ## 1.1 介绍
 oql4j 全称 Object Query Language For Java，即java版本的对象查询语言，支持使用编写查询语言快速的搜索出符合条件的对象，简化对象的处理操作。
-目前支持where条件过滤和select映射查询，后续将支持update更新等操作。
+目前支持where条件过滤、select映射查询和update字段更新等操作。
 
 # 二、使用指南
 ## 2.1 依赖说明
@@ -41,18 +41,35 @@ System.out.println(result);
 OqlClientBuilder oqlClientBuilder = new OqlClientBuilder();
 OqlClient oqlClient = oqlClientBuilder.build();
 // 原数据
-PersonTest p01 = new PersonTest();
-p01.setName("张三");
-p01.setIsMan(true);
-p01.setAge(36);
+PersonTest person = new PersonTest();
+person.setName("张三");
+person.setIsMan(true);
+person.setAge(36);
 // 编写oql语法
 String selectOqlExp = " ${age} myAge, ${isMan} as knownGender, ${name} as myName, ${addr.province} as  myAddr.province,  ${addr.city} myAddr.city";
 // 执行select映射，将映射结果赋值到MyPersonTest对象。
-MyPersonTest result = oqlClient.doSelect(selectOqlExp, p01, MyPersonTest.class);
+MyPersonTest result = oqlClient.doSelect(selectOqlExp, person, MyPersonTest.class);
 ```
 更多的使用demo，可参考代码的测试用例：com.cat.oqj4j.core.OqlClientlSelectTest
 
-## 2.4 语法检查工具使用
+
+## 2.5 Update字段更新使用案例
+```
+OqlClientBuilder oqlClientBuilder = new OqlClientBuilder();
+OqlClient oqlClient = oqlClientBuilder.build();
+// 原数据
+PersonTest person = new PersonTest();
+person.setName("张三");
+person.setIsMan(true);
+person.setAge(36);
+// 编写oql语法
+String updateOqlExp = " ${age} = '37', ${name} = '刘三', ${isMan} = ${isMan}, ${addr.city} = '惠州市' ";
+// 执行update更新，返回更新的记录数。
+int result = oqlClient.doUpdate(updateOqlExp, person);
+```
+更多的使用demo，可参考代码的测试用例：com.cat.oqj4j.core.OqlClientlSelectTest
+
+## 2.6 语法检查工具使用
 为方便快速检查语法格式是否正确，提供了静态的检查工具类com.cat.oqj4j.support.GrammarCheckHelper，方便执行语法检查。
 使用代码如下：
 ```
@@ -114,7 +131,9 @@ boolean result = GrammarCheckHelper.verifySelectExp(selectOqlExp);
   | CastChar | 转换为Character | CastChar(arg1)，arg1：用于转换为Character的参数 | 将传入的参数转换为Character，如果参数为null或者为""字符串，则返回null，长度大于1则转换报错。 |
   | CastBool | 转换为Boolean | CastBool(arg1)，arg1：用于转换为Boolean的参数 | 将传入的参数转换为Boolean，如果参数为null，则返回null。数值0和false字符串都属于假，1和true字符串则属于真(false和true字符串不区分大小写)。 |
   | ClassSimpleName | 获取Class简短名称 | ClassSimpleName(arg1)，arg1：用于获取Class字节码对象的简短名称的参数 | 将传入的参数去除Class字节码对象并获取简短名称，如果参数为null，则返回"null"字符串。 |
-  | NotExistNull | 判断全部参数都不为null | NotExistNull(arg1,arg2,arg3...)，需要判断的参数，不限制参数数量 | 将传入的参数逐一判断，如果都不为null则返回true，反之false。如果没有传入任何参数，则返回true。 |
+  | NotExistNull | 判断全部参数都不为null | NotExistNull(arg1,arg2,arg3...)，传入需要判断的参数，不限制参数数量 | 将传入的参数逐一判断，如果都不为null则返回true，反之false。如果没有传入任何参数，则返回true。 |
+  | Incr | 累加运算 | Incr(arg1,arg2)，arg1：被加数，arg2：累加步长 | 对arg1进行求和运算，即arg1+arg2，如果arg2参数为null，则默认步长为1。 |
+  | Dncr | 累减运算 | Dncr(arg1,arg2)，arg1：被减数，arg2：累减步长 | 对arg1进行减法运算，即arg1-arg2，如果arg2参数为null，则默认步长为1。 |
 
 - 框架预定义的函数使用demo，可参考代码的测试用例：com.cat.oqj4j.core.OqlClientFunTest
 
@@ -190,7 +209,18 @@ boolean result = GrammarCheckHelper.verifySelectExp(selectOqlExp);
 
 ### 3.3.3 结合Where条件过滤使用：
 - Select映射查询，是可以与Where条件过滤配套使用的，先执行Where条件过滤，将符合条件的数据再进行Select映射查询。OqlClient客户端有提供相应的api接口可调用。
-  
+
+
+## 3.4 Update更新语法
+### 3.4.1 使用格式：
+- 左边使用${}写需要更新的字段，右边为需要更新的值，多个字段间的更新使用英文逗号分隔，例如： ``` ${name1} = val1, ${name2} = val2, ${name3} = val3, ${name4} = val4 ... ```
+- 右边的更新值可以是常量值，也可以是动态值或者是使用函数，例如： ``` ${age} = F{Incr(${age})}, ${name} = '刘三' ```
+
+### 3.4.2 结合Where条件过滤使用：
+- Update字段更新，是可以与Where条件过滤配套使用的，先执行Where条件过滤，将符合条件的数据再进行Update字段更新。OqlClient客户端有提供相应的api接口可调用。
+- Update字段更新，返回结果为更新的记录条数，如果有使用Where条件，则返回的是过滤后的更新数据量。
+
+
 # 四、约定说明
 ## 4.1 比较说明
 - 目前支持的比较符号如下
@@ -220,7 +250,7 @@ boolean result = GrammarCheckHelper.verifySelectExp(selectOqlExp);
 ## 4.2 布尔类型的转换
 - 支持原生的布尔类型
 - 如果是数字类型(Number子类)，0属于假可以转换为false布尔值，1属于真可以转换为true布尔值。
-- 如果是字符串类型，"false"、'false'字符串属于假可以转换为false布尔值，"true"、'true'字符串属于真可以转换为true布尔值，并且字符串不区分大小写。
+- 如果是字符串类型，"false"、'false'、"0"、'0'字符串属于假可以转换为false布尔值，"true"、'true'、"1"、'1'字符串属于真可以转换为true布尔值，并且字符串不区分大小写均可转换。
 
 ## 4.3 关键字大小写
 除特殊情况外，默认情况下，关键字是不区分大小写的，均能识别，可根据需要自行选择使用。例如 And、AND、and、As、AS、as 等关键字都能识别。
