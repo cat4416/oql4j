@@ -34,9 +34,8 @@ public class BinaryCondHandler extends AbstractCondHandler<BinaryCondExpType> {
         for (Object srcObj : srcCol) {
             Object leftVal = leftExp.getVal(srcObj);
             Object rightVal = AntlrHelper.getExpVal(srcObj, rightExp);
-
-            boolean isStatisfied = opeDiagnotor.diagnose(leftVal, rightVal, operatorEnum);
-            if (isStatisfied) {
+            boolean isSatisfied = opeDiagnotor.diagnose(leftVal, rightVal, operatorEnum);
+            if (isSatisfied) {
                 legalObjPack.addIllegalObj(srcObj);
             }
         }
@@ -55,16 +54,16 @@ public class BinaryCondHandler extends AbstractCondHandler<BinaryCondExpType> {
         if (rightExp instanceof DynamicValExpType) {
             for (Object srcObj : srcCol) {
                 Object rightVal = ((DynamicValExpType) rightExp).getVal(srcObj);
-                boolean isStatisfied = opeDiagnotor.diagnose(leftVal, rightVal, operatorEnum);
-                if (isStatisfied) {
+                boolean isSatisfied = opeDiagnotor.diagnose(leftVal, rightVal, operatorEnum);
+                if (isSatisfied) {
                     legalObjPack.addIllegalObj(srcObj);
                 }
             }
         } else if (rightExp instanceof ConstValExpType) {
             Object rightVal = ((ConstValExpType<?>) rightExp).getVal();
-            boolean isStatisfied = opeDiagnotor.diagnose(leftVal, rightVal, operatorEnum);
+            boolean isSatisfied = opeDiagnotor.diagnose(leftVal, rightVal, operatorEnum);
             // 常量表达式判断，如果存在符合条件的，则全部对象都符合
-            if (isStatisfied) {
+            if (isSatisfied) {
                 legalObjPack.transferAllSatisfied();
             }
         } else {

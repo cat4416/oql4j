@@ -29,11 +29,11 @@ public class ValCondHandler extends AbstractCondHandler<ValCondExpType> {
         LegalObjPack legalObjPack = new LegalObjPack();
         for (Object srcObj : srcCol) {
             Object nameVal = nameExp.getVal(srcObj);
-            Boolean isStatisfied = opeDiagnotor.tryDiagnosticBool(nameVal);
-            if (isStatisfied == null) {
+            Boolean isSatisfied = opeDiagnotor.tryDiagnosticBool(nameVal);
+            if (isSatisfied == null) {
                 throw new OqlExpResolvedException(StrHelper.fillPlaceholder("{}表达式的值为【{}】，无法判断布尔结果", nameExp.getExp(), nameVal));
             }
-            if (isStatisfied) {
+            if (isSatisfied) {
                 legalObjPack.addIllegalObj(srcObj);
             }
         }
@@ -45,12 +45,12 @@ public class ValCondHandler extends AbstractCondHandler<ValCondExpType> {
                                               Deque<ExpType> nodeStack, Collection<Object> srcCol) {
         LegalObjPack legalObjPack = new LegalObjPack();
         Object nameVal = nameExp.getVal();
-        Boolean isStatisfied = opeDiagnotor.tryDiagnosticBool(nameExp.getVal());
-        if (isStatisfied == null) {
+        Boolean isSatisfied = opeDiagnotor.tryDiagnosticBool(nameExp.getVal());
+        if (isSatisfied == null) {
             throw new OqlExpResolvedException(StrHelper.fillPlaceholder("{}表达式的值为【{}】，无法判断布尔结果", nameExp.getExp(), nameVal));
         }
         // 常量表达式判断，如果存在符合条件的，则全部对象都符合
-        if (isStatisfied) {
+        if (isSatisfied) {
             legalObjPack.transferAllSatisfied();
         }
         return legalObjPack;

@@ -4,6 +4,7 @@ import com.cat.oqj4j.antlr.handler.FunHandler;
 import com.cat.oqj4j.core.OqlCoreProfile;
 import com.cat.oqj4j.support.AntlrHelper;
 import com.cat.oqj4j.exception.OqlExpResolvedException;
+import com.cat.oqj4j.support.FunHandlerContext;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -96,7 +97,7 @@ public class FunPlaceValExpType implements DynamicValExpType {
                     args[i] = val;
                 }
             }
-            return funHandler.handleFun(this.srcCol, srcObj, args);
+            return funHandler.handleFun(new FunHandlerContext(this.srcCol, srcObj, args));
         } catch(OqlExpResolvedException e) {
             throw e;
         } catch(Exception e) {

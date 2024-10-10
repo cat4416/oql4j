@@ -1,6 +1,6 @@
 package com.cat.oqj4j.antlr.handler;
 
-import java.util.Collection;
+import com.cat.oqj4j.support.FunHandlerContext;
 
 /**
  * StrLen函数处理器，用于 统计字符串长度。
@@ -11,7 +11,8 @@ import java.util.Collection;
 public class StrLenFunHandler extends AbstractFunHandler {
 
     @Override
-    public Object handleActually(Collection<?> srcCol, Object curObj, Object... args) {
+    public Object handleActually(FunHandlerContext context) {
+        Object[] args = context.getArgs();
         // 如果参数为null，则长度为0。
         int len = 0;
         if (args.length > 0 && args[0] != null) {

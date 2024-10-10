@@ -1,6 +1,6 @@
 package com.cat.oqj4j.antlr.handler;
 
-import java.util.Collection;
+import com.cat.oqj4j.support.FunHandlerContext;
 
 /**
  * IfNull函数处理器，用于判断如果arg1不为null，则返回arg1参数，否则返回arg2参数。
@@ -10,7 +10,8 @@ import java.util.Collection;
 public class IfNullFunHandler extends AbstractFunHandler {
 
     @Override
-    public Object handleActually(Collection<?> srcCol, Object curObj, Object... args) {
+    public Object handleActually(FunHandlerContext context) {
+        Object[] args = context.getArgs();
         Object result = null;
         if (args[0] != null) {
             result = args[0];

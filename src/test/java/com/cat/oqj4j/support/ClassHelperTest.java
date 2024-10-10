@@ -5,7 +5,10 @@ import org.junit.Test;
 
 import java.io.Closeable;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * 测试 Class字节码操作助手类

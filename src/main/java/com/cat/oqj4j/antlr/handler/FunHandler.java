@@ -1,6 +1,7 @@
 package com.cat.oqj4j.antlr.handler;
 
 import com.cat.oqj4j.annotation.ThreadSafe;
+import com.cat.oqj4j.support.FunHandlerContext;
 
 import java.util.Collection;
 
@@ -13,12 +14,10 @@ import java.util.Collection;
 public interface FunHandler {
     /**
      * 处理函数
-     * @param srcCol 原对象集合
-     * @param curObj 当前处理对象
-     * @param args 参数
+     * @param context 上下文
      * @return 处理结果
      */
-    public Object handleFun(Collection<?> srcCol, Object curObj, Object... args);
+    public Object handleFun(FunHandlerContext context);
 
     /**
      * 获取支持的函数名称

@@ -1,9 +1,8 @@
 package com.cat.oqj4j.antlr.handler;
 
-import com.cat.oqj4j.support.OpeDiagnotor;
 import com.cat.oqj4j.exception.OqlExpResolvedException;
-
-import java.util.Collection;
+import com.cat.oqj4j.support.FunHandlerContext;
+import com.cat.oqj4j.support.OpeDiagnotor;
 
 /**
  * If函数处理器，用于判断arg1参数，如果为真则返回arg2参数，反之返回arg3。
@@ -17,13 +16,14 @@ public class IfFunHandler extends AbstractFunHandler {
     private final OpeDiagnotor opeDiagnotor = OpeDiagnotor.getInstance();
 
     @Override
-    public Object handleActually(Collection<?> srcCol, Object curObj, Object... args) {
-        Boolean isStatisfied = opeDiagnotor.tryDiagnosticBool(args[0]);
-        if (isStatisfied == null) {
+    public Object handleActually(FunHandlerContext context) {
+        Object[] args = context.getArgs();
+        Boolean isSatisfied = opeDiagnotor.tryDiagnosticBool(args[0]);
+        if (isSatisfied == null) {
             throw new OqlExpResolvedException(args[0] + "参数无法判断布尔结果");
         }
         Object result = null;
-        if (isStatisfied) {
+        if (isSatisfied) {
             result = args[1];
         } else {
             result = args[2];

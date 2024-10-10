@@ -37,25 +37,25 @@ public class InCondHandler extends AbstractCondHandler<InCondExpType> {
 
         for (Object srcObj : srcCol) {
             Object nameVal = nameExp.getVal(srcObj);
-            boolean isStatisfied = false;
+            boolean isSatisfied = false;
             // 常量值判断
             for (ConstValExpType constExpValType : constExpValTypes) {
                 if (opeDiagnotor.diagnoseEQ(nameVal, constExpValType.getVal())) {
-                    isStatisfied = true;
+                    isSatisfied = true;
                     break;
                 }
             }
             // 常量值不符合条件，则进一步查动态值
-            if (!isStatisfied) {
+            if (!isSatisfied) {
                 for (DynamicValExpType dynamicValExpType : dynamicValExpTypes) {
                     if (opeDiagnotor.diagnoseEQ(nameVal, dynamicValExpType.getVal(srcObj))) {
-                        isStatisfied = true;
+                        isSatisfied = true;
                         break;
                     }
                 }
             }
 
-            if (isStatisfied) {
+            if (isSatisfied) {
                 legalObjPack.addIllegalObj(srcObj);
             }
         }

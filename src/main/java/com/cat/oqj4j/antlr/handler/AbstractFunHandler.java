@@ -1,9 +1,8 @@
 package com.cat.oqj4j.antlr.handler;
 
 import com.cat.oqj4j.exception.OqlExpResolvedException;
+import com.cat.oqj4j.support.FunHandlerContext;
 import com.cat.oqj4j.support.StrHelper;
-
-import java.util.Collection;
 
 /**
  * 抽象的函数表达式处理类
@@ -20,10 +19,12 @@ public abstract class AbstractFunHandler implements FunHandler {
     private static final Object[] EMPTY_ARGS = new Object[]{};
 
     @Override
-    public final Object handleFun(Collection<?> srcCol, Object curObj, Object... args) {
+    public final Object handleFun(FunHandlerContext context) {
         try {
+            Object[] args = context.getArgs();
             if (args == null) {
                 args = EMPTY_ARGS;
+                context.setArgs(args);
             }
             if (this.getRequiredArgsSize() !=ARG_NO_LIMIT) {
                 if (args.length != this.getRequiredArgsSize()) {
@@ -49,7 +50,7 @@ public abstract class AbstractFunHandler implements FunHandler {
                 }
             }
 
-            return this.handleActually(srcCol, curObj, args);
+            return this.handleActually(context);
         }  catch (OqlExpResolvedException e) {
             throw e;
         } catch (Exception e) {
@@ -59,12 +60,10 @@ public abstract class AbstractFunHandler implements FunHandler {
 
     /**
      * 实际的函数处理方法
-     * @param srcCol 原对象集合
-     * @param curObj 当前处理对象
-     * @param args 参数。非空。如果参数不存在，则传入空数组。
+     * @param context 上下文
      * @return 处理结果
      */
-    protected abstract Object handleActually(Collection<?> srcCol, Object curObj, Object[] args);
+    protected abstract Object handleActually(FunHandlerContext context);
 
     /**
      * 需要的arg参数数量

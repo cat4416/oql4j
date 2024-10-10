@@ -1,6 +1,6 @@
 package com.cat.oqj4j.antlr.handler;
 
-import java.util.Collection;
+import com.cat.oqj4j.support.FunHandlerContext;
 
 /**
  * CastInt函数处理器，用于 转换为Integer对象。
@@ -11,8 +11,9 @@ import java.util.Collection;
 public class CastIntFunHandler extends AbstractFunHandler {
 
     @Override
-    public Object handleActually(Collection<?> srcCol, Object curObj, Object... args) {
+    public Object handleActually(FunHandlerContext context) {
         Integer result = null;
+        Object[] args = context.getArgs();
         if (args.length > 0 && args[0] != null) {
             if (args[0] instanceof Integer) {
                 result = (Integer) args[0];

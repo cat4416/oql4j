@@ -1,6 +1,6 @@
 package com.cat.oqj4j.antlr.handler;
 
-import java.util.Collection;
+import com.cat.oqj4j.support.FunHandlerContext;
 
 /**
  * ClassSimpleName函数处理器，用于 获取参数的Class字节码对象的简短名称。
@@ -11,7 +11,8 @@ import java.util.Collection;
 public class ClassSimpleNameFunHandler extends AbstractFunHandler {
 
     @Override
-    public Object handleActually(Collection<?> srcCol, Object curObj, Object... args) {
+    public Object handleActually(FunHandlerContext context) {
+        Object[] args = context.getArgs();
         if (args[0] == null) {
             return "null";
         }

@@ -1,6 +1,6 @@
 package com.cat.oqj4j.antlr.handler;
 
-import java.util.Collection;
+import com.cat.oqj4j.support.FunHandlerContext;
 
 /**
  * NotExistNull函数处理器，用于判断全部参数都不为null。
@@ -11,7 +11,8 @@ import java.util.Collection;
 public class NotExistNullFunHandler extends AbstractFunHandler {
 
     @Override
-    public Object handleActually(Collection<?> srcCol, Object curObj, Object... args) {
+    public Object handleActually(FunHandlerContext context) {
+        Object[] args = context.getArgs();
         boolean result = true;
         for (Object arg : args) {
             if (arg == null) {

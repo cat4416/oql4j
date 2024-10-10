@@ -1,8 +1,7 @@
 package com.cat.oqj4j.antlr.handler;
 
+import com.cat.oqj4j.support.FunHandlerContext;
 import com.cat.oqj4j.support.OpeDiagnotor;
-
-import java.util.Collection;
 
 /**
  * CastBool函数处理器，用于 转换为Boolean对象。
@@ -20,8 +19,9 @@ public class CastBoolFunHandler extends AbstractFunHandler {
     private final OpeDiagnotor opeDiagnotor = OpeDiagnotor.getInstance();
 
     @Override
-    public Object handleActually(Collection<?> srcCol, Object curObj, Object... args) {
+    public Object handleActually(FunHandlerContext context) {
         Boolean result = null;
+        Object[] args = context.getArgs();
         if (args.length > 0 && args[0] != null) {
             result = opeDiagnotor.tryDiagnosticBool(args[0]);
         }

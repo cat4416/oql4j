@@ -1,6 +1,6 @@
 package com.cat.oqj4j.antlr.handler;
 
-import java.util.Collection;
+import com.cat.oqj4j.support.FunHandlerContext;
 
 /**
  * CastChar函数处理器，用于 转换为Character对象。
@@ -15,8 +15,9 @@ import java.util.Collection;
 public class CastCharFunHandler extends AbstractFunHandler {
 
     @Override
-    public Object handleActually(Collection<?> srcCol, Object curObj, Object... args) {
+    public Object handleActually(FunHandlerContext context) {
         Character result = null;
+        Object[] args = context.getArgs();
         if (args.length > 0 && args[0] != null) {
             if (args[0] instanceof Character) {
                 result = (Character) args[0];

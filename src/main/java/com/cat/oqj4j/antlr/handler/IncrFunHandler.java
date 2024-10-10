@@ -1,9 +1,9 @@
 package com.cat.oqj4j.antlr.handler;
 
 import com.cat.oqj4j.exception.OqlExpResolvedException;
+import com.cat.oqj4j.support.FunHandlerContext;
 
 import java.math.BigDecimal;
-import java.util.Collection;
 
 /**
  *  Incr函数处理器，用于对arg1参数进行累加，累加步长为arg2。
@@ -16,7 +16,8 @@ import java.util.Collection;
 public class IncrFunHandler extends AbstractFunHandler {
 
     @Override
-    public Object handleActually(Collection<?> srcCol, Object curObj, Object... args) {
+    public Object handleActually(FunHandlerContext context) {
+        Object[] args = context.getArgs();
         /**
          * 做优化处理：
          *  1、如果加数和步长都是Integer类型，则直接用Integer来计算，并返回Integer类型。
