@@ -245,6 +245,30 @@ public class WhereStatementBaseListener implements WhereStatementListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterMethodPlaceVal(WhereStatementParser.MethodPlaceValContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMethodPlaceVal(WhereStatementParser.MethodPlaceValContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterListVal(WhereStatementParser.ListValContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitListVal(WhereStatementParser.ListValContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterFunPlace(WhereStatementParser.FunPlaceContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -252,6 +276,18 @@ public class WhereStatementBaseListener implements WhereStatementListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFunPlace(WhereStatementParser.FunPlaceContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMethodPlace(WhereStatementParser.MethodPlaceContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMethodPlace(WhereStatementParser.MethodPlaceContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

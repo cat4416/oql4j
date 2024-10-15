@@ -130,15 +130,17 @@ public class OqlClientFunTest {
         p02.setName("李红");
         personTests.add(p02);
 
-        String whereOqlExp = "F{IfNull(${isMan}, '未知')} = '未知'";
-        List<PersonTest> result = oqlClient.doWhereFilter(whereOqlExp, personTests);
-        TestHelper.printResult("{} 输出结果为：{} ", whereOqlExp, result);
-        Assert.assertEquals(1, result.size());
-
-        whereOqlExp = "F{IfNull(${isMan}, false)}";
-        result = oqlClient.doWhereFilter(whereOqlExp, personTests);
-        TestHelper.printResult("{} 输出结果为：{} ", whereOqlExp, result);
-        Assert.assertEquals(1, result.size());
+        String updateOqlExp = "${isMan} = F{IfNull(${isMan}, false)}";
+        int result = oqlClient.doUpdate(updateOqlExp, personTests);
+        TestHelper.printResult("{} 输出结果为：{} ", updateOqlExp, result);
+        Assert.assertEquals(2, result);
+        for (PersonTest personTest : personTests) {
+            if (personTest.getName().equals("张三")) {
+                Assert.assertEquals(personTest.getIsMan(), true);
+            } else  if (personTest.getName().equals("李红")) {
+                Assert.assertEquals(personTest.getIsMan(), false);
+            }
+        }
     }
 
     /**

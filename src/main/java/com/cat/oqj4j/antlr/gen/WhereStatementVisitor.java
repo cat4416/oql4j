@@ -142,11 +142,31 @@ public interface WhereStatementVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunPlaceVal(WhereStatementParser.FunPlaceValContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code MethodPlaceVal}
+	 * labeled alternative in {@link WhereStatementParser#baseType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMethodPlaceVal(WhereStatementParser.MethodPlaceValContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ListVal}
+	 * labeled alternative in {@link WhereStatementParser#baseType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitListVal(WhereStatementParser.ListValContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link WhereStatementParser#funPlace}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitFunPlace(WhereStatementParser.FunPlaceContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link WhereStatementParser#methodPlace}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMethodPlace(WhereStatementParser.MethodPlaceContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link WhereStatementParser#fieldPlace}.
 	 * @param ctx the parse tree

@@ -42,4 +42,14 @@ public interface BeanHandler {
      * @throws BeanHandlingException bean处理异常
      */
     void copyBean(Object dest, Object orig, boolean isStrictType) throws BeanHandlingException;
+
+    /**
+     * 类型转换
+     * @param type 类型字节对象
+     * @param value 原值对象
+     * @param <T> 目标类型
+     * @return 转换后的目标值
+     * @throws BeanHandlingException 转换异常
+     */
+    <T> T convertType(Class<T> type, Object value) throws BeanHandlingException;
 }

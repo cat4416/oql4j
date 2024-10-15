@@ -90,4 +90,29 @@ public class PersonTest {
                 ", property=" + property +
                 '}';
     }
+
+    /**
+     * 获取简介
+     * @return 简介
+     */
+    public String getBriefIntro() {
+        return  name + "-" + age;
+    }
+
+    /**
+     * 组装简介
+     * @param strs 简介信息字符串参数
+     * @return 简介
+     */
+    public static String packageBriefIntro(String... strs) {
+        StringBuilder sb = new StringBuilder();
+        for (String str : strs) {
+            sb.append(str).append("-");
+        }
+        // 删除末尾的-字符
+        if (sb.length() > 0) {
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        return sb.toString();
+    }
 }

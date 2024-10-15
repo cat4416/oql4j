@@ -19,13 +19,22 @@ public abstract class AntlrHelper {
      */
     public final static String COMMA_SEPARATOR = ",";
     /**
-     * 左括号标识符
+     * 左圆括号标识符
      */
     public final static String LEFT_PARENTHESIS = "(";
     /**
-     * 右括号标识符
+     * 右圆括号标识符
      */
     public final static String RIGHT_PARENTHESIS = ")";
+
+    /**
+     * 左方括号标识符
+     */
+    public final static String LEFT_BRACKETS = "[";
+    /**
+     * 右方括号标识符
+     */
+    public final static String RIGHT_BRACKETS = "]";
 
     /**
      * 是否值表达式类型
@@ -74,15 +83,68 @@ public abstract class AntlrHelper {
      * @return 表达式
      */
     public static FunPlaceExpType generateFunPlaceExpType(ParserRuleContext context) {
+        // 函数表达式格式：F{name}、F{name()}、F{name(arg1,arg2,arg3...)}
         FunPlaceExpType funPlaceExpType = new FunPlaceExpType(context.getText());
         // 统计参数数量，根据逗号分隔符来统计。
+        int argQuantity = getParenthesisArgQuantity(context);
+        funPlaceExpType.setArgQuantity(argQuantity);
+        return funPlaceExpType;
+    }
+
+
+    /**
+     * 生成 对象方法取值占位符表达式
+     * @param context 上下文
+     * @return 表达式
+     */
+    public static MethodPlaceExpType generateMethodPlaceExpType(ParserRuleContext context) {
+        // 方法表达式格式：M{name}、M{name()}、M{name(arg1,arg2,arg3...)}
+        MethodPlaceExpType methodPlaceExpType = new MethodPlaceExpType(context.getText());
+        // 统计参数数量，根据逗号分隔符来统计。
+        int argQuantity = getParenthesisArgQuantity(context);
+        methodPlaceExpType.setArgQuantity(argQuantity);
+        return methodPlaceExpType;
+    }
+
+
+
+    /**
+     * 获取 圆括号 内的参数数量
+     * ps：格式为 xxx(arg1,arg2,arg3...) 的圆括号参数
+     * @param context 上下文
+     * @return 参数数量
+     */
+    public static int getParenthesisArgQuantity(ParserRuleContext context) {
+        return getArgQuantity(context, LEFT_PARENTHESIS, RIGHT_PARENTHESIS);
+    }
+
+    /**
+     * 获取 方括号 内的参数数量
+     * ps：格式为 xxx[arg1,arg2,arg3...] 的方括号参数
+     * @param context 上下文
+     * @return 参数数量
+     */
+    public static int getBracketsArgQuantity(ParserRuleContext context) {
+        return getArgQuantity(context, LEFT_BRACKETS, RIGHT_BRACKETS);
+    }
+
+    /**
+     * 获取 关键字符 内的参数数量
+     * ps：格式为 xxx leftKeyword arg1,arg2,arg3... rightKeyword
+     * @param context 上下文
+     * @param leftKeyword 左关键字符
+     * @param rightKeyword 右关键字符
+     * @return 参数数量
+     */
+    private static int getArgQuantity(ParserRuleContext context, String leftKeyword, String rightKeyword) {
+        // 统计参数数量，根据逗号分隔符来统计。
         int argQuantity = 0;
-        // 函数表达式格式：F{name}、F{name()}、F{name(arg1,arg2,arg3...)}
+        // 取出 格式为 xxx leftKeyword arg1,arg2,arg3... rightKeyword 的arg参数数量
         int loopCount = 0;
         for (ParseTree child : context.children) {
-            if (LEFT_PARENTHESIS.equals(child.getText())) {
+            if (leftKeyword.equals(child.getText())) {
                 // 当出现左括号(后，下一个子节点不是右括号)，则说明不是空的()括号，肯定存在有参数，初始数量为1。
-                if (!RIGHT_PARENTHESIS.equals(context.getChild(loopCount + 1).getText())) {
+                if (!rightKeyword.equals(context.getChild(loopCount + 1).getText())) {
                     argQuantity = 1;
                 }
             } else if (COMMA_SEPARATOR.equals(child.getText())) {
@@ -91,9 +153,7 @@ public abstract class AntlrHelper {
             }
             loopCount++;
         }
-        funPlaceExpType.setArgQuantity(argQuantity);
-
-        return funPlaceExpType;
+        return argQuantity;
     }
 
 

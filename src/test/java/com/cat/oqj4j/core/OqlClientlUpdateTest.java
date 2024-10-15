@@ -38,6 +38,7 @@ public class OqlClientlUpdateTest {
         String updateOqlExp = " ${age} = '37', ${name} = '刘三', ${isMan} = ${isMan}, ${addr.city} = '惠州市' ";
         int result = oqlClient.doUpdate(updateOqlExp, p01);
         TestHelper.printResult( "{} 输出结果为: {}，更新后的数据为{}", updateOqlExp, result, p01);
+        Assert.assertEquals(result, 1);
         Assert.assertTrue(p01.getAge().equals(37));
         Assert.assertTrue(p01.getName().equals("刘三"));
         Assert.assertTrue(p01.getIsMan().equals(true));

@@ -78,11 +78,31 @@ public interface UpdateStatementVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunPlaceVal(UpdateStatementParser.FunPlaceValContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code MethodPlaceVal}
+	 * labeled alternative in {@link UpdateStatementParser#baseType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMethodPlaceVal(UpdateStatementParser.MethodPlaceValContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ListVal}
+	 * labeled alternative in {@link UpdateStatementParser#baseType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitListVal(UpdateStatementParser.ListValContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link UpdateStatementParser#funPlace}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitFunPlace(UpdateStatementParser.FunPlaceContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link UpdateStatementParser#methodPlace}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMethodPlace(UpdateStatementParser.MethodPlaceContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link UpdateStatementParser#fieldPlace}.
 	 * @param ctx the parse tree

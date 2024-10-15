@@ -87,12 +87,14 @@ boolean result = GrammarCheckHelper.verifySelectExp(selectOqlExp);
 | 数值 | 数字类的都属于数值类型，包括整数和小数以及科学计数法，例如99、9993.66、-321、 1e3|
 | 布尔 | 布尔值类型，只有真和假，并且不区分大小写，例如true、True、TRUE、false、False、FALSE|
 | null | null类型，并且不区分大小写，例如null、Null、NULL|
+| 列表 | 列表类型，用[]表示，元素可以同时包含几种类型混合，除了常量类型外，还可以是取值、函数和方法等组合，格式为```[e1, e2, e3...]```|
 
 ### 3.1.2 语法概览：
 | 关键字 | 说明 | 语法demo | 详细说明 |
 | --- | --- | --- | --- |
 | ${} | 取值操作 | ```${name}``` 表示取对象的name属性 | [3.1.2.1 取值操作](#3121-取值操作) |
 | F{} | 执行函数 | ```F{StrLen(${name})}``` 表示取出对象的name属性值并且执行StrLen函数 | [3.1.2.2 执行函数](#3122-执行函数) |
+| M{} | 执行方法 | ```M{toString}``` 表示执行对象的toString方法 | [3.1.2.3 执行方法](#3123-执行方法) |
 
 #### 3.1.2.1 取值操作
 - 使用```${}```来表示，例如```${name}``` 表示取对象的name属性值，支持嵌套取值，使用.来分割，
@@ -100,7 +102,7 @@ boolean result = GrammarCheckHelper.verifySelectExp(selectOqlExp);
   <br/><br/>
 - 注意嵌套取值时，如果上层属性必为null，则直接返回null值，例如嵌套取city属性时，city的上层属性addr为null，则取到的city属性也为null。
   <br/><br/>
-- 取值操作是基本语法，支持在select映射语法、where条件语法中使用。
+- 取值操作是基本语法，支持在select映射语法、where条件语法、update更新语法中使用。
 
 #### 3.1.2.2 执行函数
 - 用于执行预定义和自定义的函数，使用F{}关键字，关键字不区分大小写， F{}、f{} 都能识别。
@@ -110,9 +112,10 @@ boolean result = GrammarCheckHelper.verifySelectExp(selectOqlExp);
   例如： ```F{StrLen(${name})}``` 表示取出对象的name属性值作为参数，执行StrLen函数。
   例如： ```F{CastInt(F{StrLen(${age})})} > 2``` 表示取出对象的age属性值，取得字符串长度，然后再转换为int类型，并对函数结果进行大于2判断。
   <br/><br/>
-- 取值操作是基本语法，支持在select映射语法、where条件语法中使用。
-  例如在select映射语法的使用： ```F{IfNull(${name}, '未知')}```
+- 执行函数功能是基本语法，支持在select映射语法、where条件语法、update更新语法中使用。
+  例如在select映射语法的使用： ```F{IfNull(${name}, '未知')} AS myName```
   例如在where条件语法的使用： ```F{StrLen(${name})} > 2```
+  例如在update更新语法的使用： ```{age} = F{Incr({age})}```
   <br/><br/>
 - 框架预定义的函数如下（支持自定义函数，具体可查看 [5.1 自定义函数](#51-自定义函数)）：
 
@@ -136,6 +139,17 @@ boolean result = GrammarCheckHelper.verifySelectExp(selectOqlExp);
   | Dncr | 累减运算 | Dncr(arg1,arg2)，arg1：被减数，arg2：累减步长 | 对arg1进行减法运算，即arg1-arg2，如果arg2参数为null，则默认步长为1。 |
 
 - 框架预定义的函数使用demo，可参考代码的测试用例：com.cat.oqj4j.core.OqlClientFunTest
+
+#### 3.1.2.3 执行方法
+- 用于执行对象的方法，也支持执行类的静态方法，要求方法必须为public类型，方法可以有参或者无参，使用M{}关键字，关键字不区分大小写， M{}、m{} 都能识别。
+  <br/><br/>
+- 格式为```M{methodName}、M{methodName()}、M{methodName(arg1,arg2...)}``` 均支持，如果调用的方法无参数，可以直接不写圆括号。
+  例如： ```M{toString}``` 表示执行对象的toString方法。
+  例如： ```M{packageBriefIntro(['我的基本信息为', ${name}, ${age}])}``` 表示执行对象的packageBriefIntro方法，并且传入指定的参数进行执行。
+  <br/><br/>
+- 如果对象执行的方法存在多个同名方法重载的情况，优先取参数相同的方法执行，如果不存在则对参数个数相同的重载方法，尝试参数类型转换后进行匹配执行。
+  <br/><br/>
+- 执行方法功能是基本语法，支持在select映射语法、where条件语法、update更新语法中使用。
 
 ## 3.2 Where条件语法
 ### 3.2.1 语法概览：

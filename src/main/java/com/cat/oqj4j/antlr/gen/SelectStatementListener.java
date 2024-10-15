@@ -136,6 +136,30 @@ public interface SelectStatementListener extends ParseTreeListener {
 	 */
 	void exitFunPlaceVal(SelectStatementParser.FunPlaceValContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code MethodPlaceVal}
+	 * labeled alternative in {@link SelectStatementParser#baseType}.
+	 * @param ctx the parse tree
+	 */
+	void enterMethodPlaceVal(SelectStatementParser.MethodPlaceValContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code MethodPlaceVal}
+	 * labeled alternative in {@link SelectStatementParser#baseType}.
+	 * @param ctx the parse tree
+	 */
+	void exitMethodPlaceVal(SelectStatementParser.MethodPlaceValContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ListVal}
+	 * labeled alternative in {@link SelectStatementParser#baseType}.
+	 * @param ctx the parse tree
+	 */
+	void enterListVal(SelectStatementParser.ListValContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ListVal}
+	 * labeled alternative in {@link SelectStatementParser#baseType}.
+	 * @param ctx the parse tree
+	 */
+	void exitListVal(SelectStatementParser.ListValContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link SelectStatementParser#funPlace}.
 	 * @param ctx the parse tree
 	 */
@@ -145,6 +169,16 @@ public interface SelectStatementListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFunPlace(SelectStatementParser.FunPlaceContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SelectStatementParser#methodPlace}.
+	 * @param ctx the parse tree
+	 */
+	void enterMethodPlace(SelectStatementParser.MethodPlaceContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SelectStatementParser#methodPlace}.
+	 * @param ctx the parse tree
+	 */
+	void exitMethodPlace(SelectStatementParser.MethodPlaceContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SelectStatementParser#fieldPlace}.
 	 * @param ctx the parse tree

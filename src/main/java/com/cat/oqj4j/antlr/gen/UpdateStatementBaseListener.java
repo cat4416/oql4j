@@ -137,6 +137,30 @@ public class UpdateStatementBaseListener implements UpdateStatementListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterMethodPlaceVal(UpdateStatementParser.MethodPlaceValContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMethodPlaceVal(UpdateStatementParser.MethodPlaceValContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterListVal(UpdateStatementParser.ListValContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitListVal(UpdateStatementParser.ListValContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterFunPlace(UpdateStatementParser.FunPlaceContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -144,6 +168,18 @@ public class UpdateStatementBaseListener implements UpdateStatementListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFunPlace(UpdateStatementParser.FunPlaceContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMethodPlace(UpdateStatementParser.MethodPlaceContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMethodPlace(UpdateStatementParser.MethodPlaceContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -4,18 +4,26 @@ grammar BaseStatement;
 
 // 定义基本类型
 baseType
-    :   STRING      #StringVal
-    |   NUMBER      #NumberVal
-    |   BOOLEAN     #BooleanVal
-    |   NULL        #NullVal
-    |   fieldPlace  #FieldPlaceVal
-    |   funPlace    #FunPlaceVal
+    :   STRING      #StringVal  // 字符串值
+    |   NUMBER      #NumberVal  // 数字值
+    |   BOOLEAN     #BooleanVal // 布尔值
+    |   NULL        #NullVal    // null值
+    |   fieldPlace  #FieldPlaceVal // 字段取值
+    |   funPlace    #FunPlaceVal // 函数取值
+    |   methodPlace #MethodPlaceVal // 方法取值
+    |   '[' (baseType (',' baseType)*)? ']' #ListVal //列表值
     ;
 
 // 定义自定义函数占位符
 funPlace
     :  'f{' ID ('(' (baseType (',' baseType)*)? ')')?  '}'
     |  'F{' ID ('(' (baseType (',' baseType)*)? ')')?  '}'
+    ;
+
+// 定义对象方法占位符
+methodPlace
+    :  'm{' ID ('(' (baseType (',' baseType)*)? ')')?  '}'
+    |  'M{' ID ('(' (baseType (',' baseType)*)? ')')?  '}'
     ;
 
 // 定义字段取值占位符

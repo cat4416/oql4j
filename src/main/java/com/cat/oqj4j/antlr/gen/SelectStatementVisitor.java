@@ -86,11 +86,31 @@ public interface SelectStatementVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunPlaceVal(SelectStatementParser.FunPlaceValContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code MethodPlaceVal}
+	 * labeled alternative in {@link SelectStatementParser#baseType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMethodPlaceVal(SelectStatementParser.MethodPlaceValContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ListVal}
+	 * labeled alternative in {@link SelectStatementParser#baseType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitListVal(SelectStatementParser.ListValContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link SelectStatementParser#funPlace}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitFunPlace(SelectStatementParser.FunPlaceContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SelectStatementParser#methodPlace}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMethodPlace(SelectStatementParser.MethodPlaceContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SelectStatementParser#fieldPlace}.
 	 * @param ctx the parse tree

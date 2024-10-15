@@ -122,6 +122,30 @@ public interface UpdateStatementListener extends ParseTreeListener {
 	 */
 	void exitFunPlaceVal(UpdateStatementParser.FunPlaceValContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code MethodPlaceVal}
+	 * labeled alternative in {@link UpdateStatementParser#baseType}.
+	 * @param ctx the parse tree
+	 */
+	void enterMethodPlaceVal(UpdateStatementParser.MethodPlaceValContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code MethodPlaceVal}
+	 * labeled alternative in {@link UpdateStatementParser#baseType}.
+	 * @param ctx the parse tree
+	 */
+	void exitMethodPlaceVal(UpdateStatementParser.MethodPlaceValContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ListVal}
+	 * labeled alternative in {@link UpdateStatementParser#baseType}.
+	 * @param ctx the parse tree
+	 */
+	void enterListVal(UpdateStatementParser.ListValContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ListVal}
+	 * labeled alternative in {@link UpdateStatementParser#baseType}.
+	 * @param ctx the parse tree
+	 */
+	void exitListVal(UpdateStatementParser.ListValContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link UpdateStatementParser#funPlace}.
 	 * @param ctx the parse tree
 	 */
@@ -131,6 +155,16 @@ public interface UpdateStatementListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFunPlace(UpdateStatementParser.FunPlaceContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link UpdateStatementParser#methodPlace}.
+	 * @param ctx the parse tree
+	 */
+	void enterMethodPlace(UpdateStatementParser.MethodPlaceContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link UpdateStatementParser#methodPlace}.
+	 * @param ctx the parse tree
+	 */
+	void exitMethodPlace(UpdateStatementParser.MethodPlaceContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link UpdateStatementParser#fieldPlace}.
 	 * @param ctx the parse tree

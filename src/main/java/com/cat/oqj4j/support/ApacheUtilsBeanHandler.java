@@ -34,6 +34,16 @@ public class ApacheUtilsBeanHandler implements BeanHandler {
         convertUtils.register(booleanConverter, Boolean.class);
     }
 
+    /**
+     * 注册转换器
+     * @param converter 转换器
+     * @param clazz 目标类型
+     */
+    public void registerConverter(final Converter converter, final Class<?> clazz) {
+        convertUtils.register(converter, clazz);
+    }
+
+
     @Override
     public <T> T getFieldVal(Object bean, String fieldName) throws BeanHandlingException {
         try {
@@ -171,12 +181,10 @@ public class ApacheUtilsBeanHandler implements BeanHandler {
                 }
                 // 对最后个字段进行类型转换
                 if (i == fieldNameChips.length - 1) {
-                    Converter converter = convertUtils.lookup(targetDescriptor.getPropertyType());
-                    if (converter == null) {
-                        throw new BeanHandlingException(val.getClass() + "字段值的类型无对应转换器" );
-                    }
                     // 将字段值转换为目标值
-                    val = converter.convert(targetDescriptor.getPropertyType(), val);
+                    val = this.convertType(targetDescriptor.getPropertyType(), val);
+                    // 将字段值转换为目标值
+                    this.convertType(targetDescriptor.getPropertyType(), val);
                     isResolved = true;
                     break outFieldName;
                 } else {
@@ -213,6 +221,21 @@ public class ApacheUtilsBeanHandler implements BeanHandler {
             throw new BeanHandlingException("拷贝bean异常：" + e.getMessage());
         } catch(Exception e) {
             throw new BeanHandlingException("拷贝bean异常", e);
+        }
+    }
+
+    @Override
+    public <T> T convertType(Class<T> type, Object value) throws BeanHandlingException {
+        try {
+            Converter converter = convertUtils.lookup(type);
+            if (converter == null) {
+                throw new BeanHandlingException(value.getClass() + "类型不支持转换为" + type );
+            }
+            return converter.convert(type, value);
+        } catch(BeanHandlingException e) {
+            throw e;
+        } catch(Exception e) {
+            throw new BeanHandlingException(value.getClass() + "类型不支持转换为" + type);
         }
     }
 }

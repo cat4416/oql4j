@@ -1,5 +1,6 @@
 package com.cat.oqj4j.antlr.listener;
 
+import com.cat.oqj4j.antlr.gen.SelectStatementParser;
 import com.cat.oqj4j.antlr.gen.UpdateStatementBaseListener;
 import com.cat.oqj4j.antlr.gen.UpdateStatementParser;
 import com.cat.oqj4j.antlr.type.*;
@@ -124,6 +125,40 @@ public class UpdateStatementListener extends UpdateStatementBaseListener {
     public void exitFunPlace(UpdateStatementParser.FunPlaceContext ctx) {
         FunPlaceExpType funPlaceExpType = AntlrHelper.generateFunPlaceExpType(ctx);
         nodeStack.push(funPlaceExpType);
+    }
+
+    @Override
+    public void exitMethodPlaceVal(UpdateStatementParser.MethodPlaceValContext ctx) {
+        MethodPlaceValExpType methodPlaceValType = new MethodPlaceValExpType(ctx.getText(), this.coreProfile, this.srcCol);
+        // 取出函数占位符
+        MethodPlaceExpType methodPlaceExpType = (MethodPlaceExpType) nodeStack.pop();
+        // 添加对应参数的表达式
+        for (int i = 0; i < methodPlaceExpType.getArgQuantity(); i++) {
+            methodPlaceValType.addArgExpTypes((ValExpType) nodeStack.pop());
+        }
+        // 使用栈堆方式入参，故需要进行反转，参数顺序才和表达式一致
+        methodPlaceValType.reverseArg();
+        nodeStack.push(methodPlaceValType);
+    }
+
+    @Override
+    public void exitMethodPlace(UpdateStatementParser.MethodPlaceContext ctx) {
+        MethodPlaceExpType methodPlaceExpType = AntlrHelper.generateMethodPlaceExpType(ctx);
+        nodeStack.push(methodPlaceExpType);
+    }
+
+    @Override
+    public void exitListVal(UpdateStatementParser.ListValContext ctx) {
+        // 格式为： [e1, e2, e3...]
+        ListValExpType listValExpType = new ListValExpType(ctx.getText(), this.coreProfile, this.srcCol);
+        int bracketsArgQuantity = AntlrHelper.getBracketsArgQuantity(ctx);
+        // 添加对应元素的表达式
+        for (int i = 0; i < bracketsArgQuantity; i++) {
+            listValExpType.addElementExpTypes((ValExpType) nodeStack.pop());
+        }
+        // 使用栈堆方式入参，故需要进行反转，元素顺序才和表达式一致
+        listValExpType.reverseElement();
+        nodeStack.push(listValExpType);
     }
 
     /**

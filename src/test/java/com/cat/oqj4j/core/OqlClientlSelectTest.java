@@ -33,7 +33,7 @@ public class OqlClientlSelectTest {
         p01.setName("张三");
         p01.setIsMan(true);
         p01.setAge(36);
-        String selectOqlExp = " ${age} myAge, ${isMan} as manGender, ${name}, ${property} TheProperty, F{StrLen(${name})}, true isOld";
+        String selectOqlExp = " ${age} myAge, ${isMan} as manGender, ${name}, ${property} TheProperty, F{StrLen(${name})}, true isOld, M{getBriefIntro} briefIntro";
         Map<String, Object> result = oqlClient.doSelect(selectOqlExp, p01);
         TestHelper.printResult( "{} 输出结果为: {}", selectOqlExp, result);
         Assert.assertTrue(result.get("myAge").equals(36));

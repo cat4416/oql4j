@@ -232,6 +232,30 @@ public interface WhereStatementListener extends ParseTreeListener {
 	 */
 	void exitFunPlaceVal(WhereStatementParser.FunPlaceValContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code MethodPlaceVal}
+	 * labeled alternative in {@link WhereStatementParser#baseType}.
+	 * @param ctx the parse tree
+	 */
+	void enterMethodPlaceVal(WhereStatementParser.MethodPlaceValContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code MethodPlaceVal}
+	 * labeled alternative in {@link WhereStatementParser#baseType}.
+	 * @param ctx the parse tree
+	 */
+	void exitMethodPlaceVal(WhereStatementParser.MethodPlaceValContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ListVal}
+	 * labeled alternative in {@link WhereStatementParser#baseType}.
+	 * @param ctx the parse tree
+	 */
+	void enterListVal(WhereStatementParser.ListValContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ListVal}
+	 * labeled alternative in {@link WhereStatementParser#baseType}.
+	 * @param ctx the parse tree
+	 */
+	void exitListVal(WhereStatementParser.ListValContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link WhereStatementParser#funPlace}.
 	 * @param ctx the parse tree
 	 */
@@ -241,6 +265,16 @@ public interface WhereStatementListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFunPlace(WhereStatementParser.FunPlaceContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link WhereStatementParser#methodPlace}.
+	 * @param ctx the parse tree
+	 */
+	void enterMethodPlace(WhereStatementParser.MethodPlaceContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link WhereStatementParser#methodPlace}.
+	 * @param ctx the parse tree
+	 */
+	void exitMethodPlace(WhereStatementParser.MethodPlaceContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link WhereStatementParser#fieldPlace}.
 	 * @param ctx the parse tree

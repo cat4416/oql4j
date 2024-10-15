@@ -13,6 +13,9 @@ import java.util.List;
 
 /**
  * 函数取值占位符的值类型表达式
+ * ps：注意FunPlaceValExpType与FunPlaceExpType 的区别，
+ *     FunPlaceExpType是函数取值占位符表达式，而FunPlaceValExpType是作为值类型被引用，可以取得值结果。
+ *     FunPlaceExpType是基础类型(用于辅助取参)，FunPlaceValExpType是具体使用。
  *
  * @author gwj
  */
@@ -35,7 +38,7 @@ public class FunPlaceValExpType implements DynamicValExpType {
      */
     private Collection<?> srcCol;
     /**
-     * 函数括号里包含的参数表达式类型集合。
+     * 函数括号里包含的参数值表达式类型集合。
      * ps：funName(10,20,${city}) 则说明有3个参数
      */
     private List<ValExpType> argExpTypes;

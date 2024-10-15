@@ -149,6 +149,30 @@ public class SelectStatementBaseListener implements SelectStatementListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterMethodPlaceVal(SelectStatementParser.MethodPlaceValContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMethodPlaceVal(SelectStatementParser.MethodPlaceValContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterListVal(SelectStatementParser.ListValContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitListVal(SelectStatementParser.ListValContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterFunPlace(SelectStatementParser.FunPlaceContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -156,6 +180,18 @@ public class SelectStatementBaseListener implements SelectStatementListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFunPlace(SelectStatementParser.FunPlaceContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMethodPlace(SelectStatementParser.MethodPlaceContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMethodPlace(SelectStatementParser.MethodPlaceContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
