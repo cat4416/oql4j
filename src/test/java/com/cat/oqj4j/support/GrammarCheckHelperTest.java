@@ -17,7 +17,7 @@ public class GrammarCheckHelperTest {
      */
     @Test
     public void testCheckWhereExp() {
-        String whereOqlExp = "F{StrLen(${name})} AND ${age} > 20 AND ${addr} IN ('北京市','上海市','广州市')";
+        String whereOqlExp = "F{StrLen(${name})} AND ${age} > 20 AND ${addr} IN ('北京市','上海市','广州市') AND M{getPetPhrase} = 'hellow'";
         GrammarCheckHelper.checkWhereExp(whereOqlExp);
         TestHelper.printResult("{} 语法检查通过", whereOqlExp);
     }
@@ -70,7 +70,7 @@ public class GrammarCheckHelperTest {
      */
     @Test
     public void testCheckSelectExp() {
-        String selectOqlExp = "F{StrLen(${name})}, true isMan, 26 as age, ${hobby} myHobby";
+        String selectOqlExp = "F{StrLen(${name})}, true isMan, 26 as age, ${hobby} myHobby, M{getPetPhrase} petPhrase";
         GrammarCheckHelper.checkSelectExp(selectOqlExp);
         TestHelper.printResult("{} 语法检查通过", selectOqlExp);
     }
@@ -124,7 +124,7 @@ public class GrammarCheckHelperTest {
      */
     @Test
     public void testCheckUpdateExp() {
-        String updateOqlExp = "${age} = F{Incr(${age})}, ${name} = '张三', ${isMan} = ${isMan}";
+        String updateOqlExp = "${age} = F{Incr(${age})}, ${name} = '张三', ${isMan} = ${isMan}, ${tag} = M{getPetPhrase}";
         GrammarCheckHelper.checkUpdateExp(updateOqlExp);
         TestHelper.printResult("{} 语法检查通过", updateOqlExp);
     }
